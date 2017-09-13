@@ -11,6 +11,9 @@ nmm.engine.AssetsLoader = class {
             nmm.runtime.singletons.assetsLoader = this;
         }
 
+        this._texturesLoaded = false;
+        this._audioLoaded = false;
+
         return nmm.runtime.singletons.assetsLoader;
     }
 
@@ -18,12 +21,41 @@ nmm.engine.AssetsLoader = class {
         return this._loader;
     }
 
-    _loadSprites () {
+    _loadComplete () {
+        if (this._texturesLoaded && this._audioLoaded) {
+            this._callback();
+        }
+    }
+
+    _loadAudio () {
+        var self = this,
+            audio = nmm.app.config.audio;
+
+        // Load audio with soundjs.
+        createjs.Sound.on('fileload', function () {
+            self._audioLoaded = true;
+            self._loadComplete();
+        });
+
+        if(audio.alternateExtensions.length > 0) {
+            createjs.Sound.alternateExtensions = audio.alternateExtensions;
+        }
+
+        audio.files.forEach(function (file) {
+            createjs.Sound.registerSound(file.src, file.label);
+        });
+
+        audio.spriteSheets.forEach(function (spriteSheet) {
+            createjs.Sound.registerSound(spriteSheet);
+        });
+    }
+
+    _loadTextures () {
         var self = this;
 
         this._loader = PIXI.loader;
 
-        var textures = nmm.app.config.textures.SPRITESHEETS['ss' + nmm.runtime.app.devicePixelRatio].forEach(function (sprite) {
+        var textures = nmm.app.config.textures.spriteSheets['ss' + nmm.runtime.app.devicePixelRatio].forEach(function (sprite) {
             self._loader.add(sprite);
         });
 
@@ -32,12 +64,14 @@ nmm.engine.AssetsLoader = class {
         }
 
         this._loader.load(function (loader, resources) {
-            self._callback();
+            self._texturesLoaded = true;
+            self._loadComplete();
         });
     }
 
     init(callback) {
         this._callback = callback;
-        this._loadSprites();
+        this._loadTextures();
+        this._loadAudio();
     }
 };
