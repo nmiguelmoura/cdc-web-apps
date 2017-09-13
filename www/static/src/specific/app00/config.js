@@ -3,21 +3,56 @@
  */
 
 nmm.app.config = {
+    // Set color for html body.
+    backgroundColorDocument: 0x1ABC9C,
+
+    // Set url for body tile.
+    tileURL: 'static/assets/general/tile.png',
+
+    // Set PIXI transparent background.
+    transparent: true,
+
+    // Set background color for PIXI app. Only used if transparent is false.
+    backgroundColorPIXI: null,
+
+    // URL for textures.
     textures: {
-        background: null,
+        // Set url for spriteSheets.
         spriteSheets: {
             ss1: ['static/assets/specific/app00/atlas00@1x.json'],
             ss2: ['static/assets/specific/app00/atlas00@2x.json', 'static/assets/specific/app00/atlas01@2x.json']
-        }
+        },
+
+        // Set url for logo.
+        logo: {
+            ss1: 'static/assets/general/logo.png',
+            ss2: 'static/assets/general/logo@2x.png'
+        },
+
+        // Set url for other image files.
+        otherTextures: [
+            /*{
+                label: 'abc',
+                ss1: 'static/assets/general/filename.png',
+                ss2: 'static/assets/general/filename@2x.png'
+            }*/
+        ]
     },
+
+    // URL and data for audio.
     audio: {
+        // Include alternate extensions: ['ogg'].
         alternateExtensions: [],
+
+        // Import audio files no sprited.
         files: [
             {
                 src: 'static/assets/specific/app00/audioSprite.mp3',
                 label: 'audioSprite'
             }
         ],
+
+        // Import data for audio sprites.
         spriteSheets: [
             {
                 "src": "static/assets/specific/app00/audioSprite_.mp3",

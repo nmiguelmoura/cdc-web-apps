@@ -51,16 +51,23 @@ nmm.engine.AssetsLoader = class {
     }
 
     _loadTextures () {
-        var self = this;
+        var self = this,
+            dpr = nmm.runtime.app.devicePixelRatio;
 
         this._loader = PIXI.loader;
 
-        var textures = nmm.app.config.textures.spriteSheets['ss' + nmm.runtime.app.devicePixelRatio].forEach(function (sprite) {
+        nmm.app.config.textures.spriteSheets['ss' + dpr].forEach(function (sprite) {
             self._loader.add(sprite);
         });
 
-        if (nmm.app.config.textures.background) {
-            this._loader.add(nmm.app.config.textures.background);
+        if (nmm.app.config.textures.logo['ss' + dpr]) {
+            self._loader.add('logo', nmm.app.config.textures.logo['ss' + dpr]);
+        }
+
+        if (nmm.app.config.textures.otherTextures.length > 0) {
+            nmm.app.config.textures.otherTextures.forEach(function (texture) {
+                self._loader.add(texture.label, texture['ss1']);
+            });
         }
 
         this._loader.load(function (loader, resources) {

@@ -38,16 +38,7 @@ nmm.states.genericStates.views.LoadingView = class LoadingView extends PIXI.Cont
             step = 180 / (maxCircles - 1),
             dist = 40,
             radius = 6,
-            colors = [
-                0xE94D33,
-                0xE95B26,
-                0xE86918,
-                0xE8770B,
-                0xE98803,
-                0xEC9B02,
-                0xEFB001,
-                0xF2C300
-            ],
+            color = 0xFFFFFF,
             angle,
             x,
             y;
@@ -56,7 +47,8 @@ nmm.states.genericStates.views.LoadingView = class LoadingView extends PIXI.Cont
             x = Math.cos(angle) *  dist;
             y = Math.sin(angle) * dist;
 
-            graph.beginFill(colors[i], 1 - i * 0.1)
+            graph.beginFill(color, 1 - i * 0.1)
+                .lineStyle(1, 0x000000, 1)
                 .drawCircle(x, y, radius);
         }
         graph.endFill();

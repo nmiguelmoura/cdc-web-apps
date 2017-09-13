@@ -83,22 +83,30 @@ nmm.engine.Application = class {
     }
 
     _setupPIXI() {
-        this._pixi = new PIXI.Application(this.WIDTH, this.HEIGHT, {
+        this._pixi = new PIXI.Application({
+            width: this.WIDTH,
+            height: this.HEIGHT,
             resolution: this.devicePixelRatio,
             autoResize: true,
-            backgroundColor: 0xFFFFFF
+            transparent: nmm.app.config.transparent,
+            backgroundColor: nmm.app.config.transparent ? null : nmm.app.config.backgroundColorPIXI
         });
 
         document.body.appendChild(this._pixi.view);
     }
 
+    _setupDocument () {
+        document.body.style.backgroundColor = PIXI.utils.hex2string(nmm.app.config.backgroundColorDocument);
+        document.body.style.backgroundImage = `url(${nmm.app.config.tileURL})`;
+    }
+
     init() {
+        this._setupDocument();
         this._setupPIXI();
         this._resizeApp();
         this._setAssetsLoader();
         this._setFSM();
     }
-
 };
 
 nmm.runtime.app = new nmm.engine.Application();
