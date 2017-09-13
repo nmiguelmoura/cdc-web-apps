@@ -1,7 +1,7 @@
 /**
  * Created by Nuno on 13/09/17.
  */
-
+'use strict';
 nmm.app.config = {
     // Set color for html body.
     backgroundColorDocument: 0x1ABC9C,

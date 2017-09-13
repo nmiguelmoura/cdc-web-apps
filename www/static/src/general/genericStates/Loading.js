@@ -32,7 +32,7 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
 
     _assetsLoaded () {
         console.log('... Loading assets successful');
-        nmm.runtime.app.fsm.changeState('menu');
+        nmm.runtime.app.fsm.changeState('logo');
     }
 
     _loadAssets () {

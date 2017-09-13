@@ -2,6 +2,7 @@
  * Created by Nuno on 13/09/17.
  */
 
+'use strict';
 nmm.runtime.singletons = nmm.runtime.singletons || {};
 nmm.runtime.singletons.assetsLoader = null;
 

@@ -1,9 +1,10 @@
 /**
  * Created by Nuno on 12/09/17.
  */
-// This class simulates a simple finite state machine.
-'use strict';
 
+// This class simulates a simple finite state machine.
+
+'use strict';
 nmm.runtime.singletons = nmm.runtime.singletons || {};
 nmm.runtime.singletons.fsm = null;
 
@@ -106,7 +107,7 @@ nmm.engine.FSM = class {
         this.registerState(loadingState);
         this.changeState(loadingState.name);
 
-        //this.registerState(new nmm.states.genericStates.Logo());
+        this.registerState(new nmm.states.genericStates.Logo());
         this.registerState(new nmm.states.genericStates.Menu());
     }
 

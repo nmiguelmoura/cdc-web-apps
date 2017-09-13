@@ -1,7 +1,7 @@
 /**
  * Created by Nuno on 12/09/17.
  */
-
+'use strict';
 nmm.states.genericStates.TemplateState = class TemplateState extends PIXI.Container {
     constructor (name) {
         super();
