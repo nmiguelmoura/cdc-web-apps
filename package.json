@@ -9,6 +9,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "createjs-soundjs": "^0.6.2",
     "grunt": "^1.0.1",
     "grunt-babel": "^7.0.0",
     "grunt-contrib-cssmin": "^2.2.1",

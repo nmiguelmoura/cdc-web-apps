@@ -51,7 +51,7 @@ nmm.engine.FSM = class {
             state.destroy();
             this._states[stateName] = null;
             delete this._states[stateName];
-            console.log('State destroyed: ', stateName);
+            console.log('xx State destroyed: ', stateName);
         }
         // TODO: code to destroy undesired state.
     }
@@ -74,7 +74,7 @@ nmm.engine.FSM = class {
     changeState(targetStateName) {
         targetStateName = this._lowerCaseName(targetStateName);
 
-        console.log('Change to state: ', targetStateName);
+        console.log('-> Change to state: ', targetStateName);
 
         if (this._state) {
             this._state.animateOut(this._removeStateFromStageBound);
