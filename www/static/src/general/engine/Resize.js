@@ -1,7 +1,7 @@
 /**
  * Created by Nuno on 11/09/17.
  */
-
+'use strict';
 nmm.runtime.singletons = nmm.runtime.singletons || {};
 nmm.runtime.singletons.resize = null;
 

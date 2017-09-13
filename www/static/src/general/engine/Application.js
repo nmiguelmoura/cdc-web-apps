@@ -7,7 +7,7 @@ nmm.runtime.singletons.application = null;
 
 nmm.engine.Application = class {
 
-    constructor () {
+    constructor() {
         // singleton
         if (!nmm.runtime.singletons.application) {
             nmm.runtime.singletons.application = this;
@@ -16,22 +16,30 @@ nmm.engine.Application = class {
         this.WIDTH = 1024;
         this.HEIGHT = 768;
 
+        // variable to store device pixel ratio.
+        this._dpr = null;
+
         return nmm.runtime.singletons.application;
     }
 
-    get defaultResolution () {
+    get defaultResolution() {
         return {
             width: this.WIDTH,
             height: this.HEIGHT
         };
     }
 
-    get devicePixelRatio () {
-        let dpr = window.devicePixelRatio;
-        return dpr <= 2 ? dpr : 2;
+    get devicePixelRatio() {
+        if (!this._dpr) {
+            let dpr = window.devicePixelRatio;
+            dpr = dpr <= 2 ? dpr : 2;
+            this._dpr = dpr;
+        }
+
+        return this._dpr;
     }
 
-    get pixi () {
+    get pixi() {
         return {
             app: this._pixi,
             renderer: this._pixi.renderer,
@@ -40,24 +48,41 @@ nmm.engine.Application = class {
         };
     }
 
-    get windowResolution () {
+    get windowResolution() {
         return this._resize.windowResolution;
     }
 
-    get margins () {
+    get margins() {
         return this._resize.margins;
     }
 
-    get resolution () {
+    get resolution() {
         return this._resize.resolution;
     }
 
-    _resizeApp () {
-        this._resize = new nmm.engine.Resize (this.pixi.renderer, this.pixi.stage, this.defaultResolution);
-        this._resize.init ();
+    get fsm () {
+        return this._fsm;
     }
 
-    _setupPIXI () {
+    get assetsLoader () {
+        return this._assetsLoader;
+    }
+
+    _setAssetsLoader () {
+        this._assetsLoader = new nmm.engine.AssetsLoader();
+    }
+
+    _setFSM() {
+        this._fsm = new nmm.engine.FSM();
+        this._fsm.init();
+    }
+
+    _resizeApp() {
+        this._resize = new nmm.engine.Resize(this.pixi.renderer, this.pixi.stage, this.defaultResolution);
+        this._resize.init();
+    }
+
+    _setupPIXI() {
         this._pixi = new PIXI.Application(this.WIDTH, this.HEIGHT, {
             resolution: this.devicePixelRatio,
             autoResize: true,
@@ -67,12 +92,14 @@ nmm.engine.Application = class {
         document.body.appendChild(this._pixi.view);
     }
 
-    init () {
-        this._setupPIXI ();
+    init() {
+        this._setupPIXI();
         this._resizeApp();
+        this._setAssetsLoader();
+        this._setFSM();
     }
 
 };
 
-nmm.runtime.app = new nmm.engine.Application ();
+nmm.runtime.app = new nmm.engine.Application();
 nmm.runtime.app.init();
