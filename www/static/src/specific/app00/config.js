@@ -46,15 +46,15 @@ nmm.app.config = {
 
         // Import audio files no sprited.
         files: [
-            {
+            /*{
                 src: 'static/assets/specific/app00/audioSprite.mp3',
                 label: 'audioSprite'
-            }
+            }*/
         ],
 
         // Import data for audio sprites.
         spriteSheets: [
-            {
+            /*{
                 "src": "static/assets/specific/app00/audioSprite_.mp3",
                 "data": {
                     "audioSprite": [
@@ -80,7 +80,7 @@ nmm.app.config = {
                         }
                     ]
                 }
-            }
+            }*/
         ]
     }
 };

@@ -6,7 +6,6 @@ nmm.runtime.singletons = nmm.runtime.singletons || {};
 nmm.runtime.singletons.application = null;
 
 nmm.engine.Application = class {
-
     constructor() {
         // singleton
         if (!nmm.runtime.singletons.application) {
@@ -108,6 +107,3 @@ nmm.engine.Application = class {
         this._setFSM();
     }
 };
-
-nmm.runtime.app = new nmm.engine.Application();
-nmm.runtime.app.init();

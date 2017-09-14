@@ -3,7 +3,7 @@
  */
 
 'use strict';
-nmm.states.genericStates.Menu = class Menu extends nmm.states.genericStates.TemplateState {
+nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.TemplateState {
     constructor () {
         super();
         this.name = 'menu';
@@ -14,5 +14,9 @@ nmm.states.genericStates.Menu = class Menu extends nmm.states.genericStates.Temp
             .endFill();
 
         this.addChild(n);
+    }
+
+    _init () {
+
     }
 };

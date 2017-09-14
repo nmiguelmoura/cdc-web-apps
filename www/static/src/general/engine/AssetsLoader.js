@@ -30,12 +30,19 @@ nmm.engine.AssetsLoader = class {
 
     _loadAudio () {
         var self = this,
-            audio = nmm.app.config.audio;
+            audio = nmm.app.config.audio,
+            filesTotal = 0,
+            filesLoaded = 0;
 
         // Load audio with soundjs.
-        createjs.Sound.on('fileload', function () {
-            self._audioLoaded = true;
-            self._loadComplete();
+        createjs.Sound.on('fileload', function (event) {
+            // This runs everytime a file loads. We need to ensure the loadComplete method
+            // only runs when all files are loaded.
+            filesLoaded ++;
+            if (filesTotal === filesLoaded) {
+                self._audioLoaded = true;
+                self._loadComplete();
+            }
         });
 
         if(audio.alternateExtensions.length > 0) {
@@ -43,12 +50,20 @@ nmm.engine.AssetsLoader = class {
         }
 
         audio.files.forEach(function (file) {
+            filesTotal++;
             createjs.Sound.registerSound(file.src, file.label);
         });
 
         audio.spriteSheets.forEach(function (spriteSheet) {
+            filesTotal++;
             createjs.Sound.registerSound(spriteSheet);
         });
+
+        if (filesTotal === 0) {
+            // If there are no sound files to load, proceed
+            self._audioLoaded = true;
+            self._loadComplete();
+        }
     }
 
     _loadTextures () {

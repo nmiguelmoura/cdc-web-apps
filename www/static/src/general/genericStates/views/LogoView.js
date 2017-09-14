@@ -12,6 +12,14 @@ nmm.states.genericStates.views.LogoView = class LogoView extends PIXI.Container 
         this._init();
     }
 
+    destroy () {
+        super.destroy ({
+            children: true,
+            texture: true,
+            baseTexture: true
+        });
+    }
+
     _addFields () {
         var style = {
             fontFamily: 'Arial',

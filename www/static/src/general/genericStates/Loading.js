@@ -7,7 +7,6 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
     constructor () {
         super();
         this.name = 'loading';
-        this._init();
     }
 
     destroy () {

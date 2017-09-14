@@ -8,15 +8,24 @@ nmm.states.genericStates.Logo = class Logo extends nmm.states.genericStates.Temp
         super();
         this.name = 'logo';
         this.DURATION = 2.5;
-        this._init();
+    }
+
+    destroy () {
+        super.destroy ({
+            children: true,
+            texture: true,
+            baseTexture: true
+        });
     }
 
     _stateOut () {
-        this.removeChild(this._view);
-        this._view.destroy();
-        this._view = null;
-        this.destroy();
         nmm.runtime.app.fsm.destroyState(this.name);
+    }
+
+    _stateIn () {
+        TweenLite.delayedCall(this.DURATION, function () {
+            nmm.runtime.app.fsm.changeState('menu');
+        }, [], this);
     }
 
     _addView () {
@@ -26,8 +35,5 @@ nmm.states.genericStates.Logo = class Logo extends nmm.states.genericStates.Temp
 
     _init () {
         this._addView();
-        TweenLite.delayedCall(this.DURATION, function () {
-            nmm.runtime.app.fsm.changeState('menu');
-        }, [], this);
     }
 };

@@ -9,6 +9,7 @@ nmm.states.genericStates.TemplateState = class TemplateState extends PIXI.Contai
         this.TWEEN_IN_TIME = 0.5;
         this.TWEEN_OUT_TIME = 0.5;
         this.alpha = 0;
+        this._isInitted = false;
     }
 
     animateIn () {
@@ -34,5 +35,16 @@ nmm.states.genericStates.TemplateState = class TemplateState extends PIXI.Contai
             children: true,
             textures: true
         });
+    }
+
+    _init () {
+        // This method is meant to be override by the classes that inherit from this one.
+    }
+
+    init () {
+        if (!this._isInitted) {
+            this._init();
+            this._isInitted = true;
+        }
     }
 };
