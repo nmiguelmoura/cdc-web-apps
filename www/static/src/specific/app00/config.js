@@ -15,6 +15,9 @@ nmm.app.config = {
     // Set background color for PIXI app. Only used if transparent is false.
     backgroundColorPIXI: null,
 
+    // Set DOM elements. Create a div aligned and resizable with the canvas.
+    DOMElements: true,
+
     // URL for textures.
     textures: {
         // Set url for spriteSheets.
@@ -54,7 +57,7 @@ nmm.app.config = {
 
         // Import data for audio sprites.
         spriteSheets: [
-            /*{
+            {
                 "src": "static/assets/specific/app00/audioSprite_.mp3",
                 "data": {
                     "audioSprite": [
@@ -80,7 +83,7 @@ nmm.app.config = {
                         }
                     ]
                 }
-            }*/
+            }
         ]
     }
 };

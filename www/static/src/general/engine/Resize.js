@@ -29,6 +29,10 @@ nmm.engine.Resize = class {
         }
     }
 
+    get scale  () {
+        return this._scale;
+    }
+
     get margins () {
         return this._margin;
     }
@@ -81,6 +85,8 @@ nmm.engine.Resize = class {
         this._canvasAlignment();
 
         this._renderer.render(this._stage);
+
+        nmm.observer.publish('resize');
     }
 
     init() {

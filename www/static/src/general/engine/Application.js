@@ -21,6 +21,14 @@ nmm.engine.Application = class {
         return nmm.runtime.singletons.application;
     }
 
+    get rendererType() {
+        if (nmm.renderer instanceof PIXI.CanvasRenderer) {
+            return 'canvas';
+        } else {
+            return 'webgl';
+        }
+    }
+
     get defaultResolution() {
         return {
             width: this.WIDTH,
@@ -59,15 +67,19 @@ nmm.engine.Application = class {
         return this._resize.resolution;
     }
 
-    get fsm () {
+    get scale() {
+        return this._resize.scale;
+    }
+
+    get fsm() {
         return this._fsm;
     }
 
-    get assetsLoader () {
+    get assetsLoader() {
         return this._assetsLoader;
     }
 
-    _setAssetsLoader () {
+    _setAssetsLoader() {
         this._assetsLoader = new nmm.engine.AssetsLoader();
     }
 
@@ -79,6 +91,15 @@ nmm.engine.Application = class {
     _resizeApp() {
         this._resize = new nmm.engine.Resize(this.pixi.renderer, this.pixi.stage, this.defaultResolution);
         this._resize.init();
+    }
+
+    _setupDOM() {
+        document.body.style.backgroundColor = PIXI.utils.hex2string(nmm.app.config.backgroundColorDocument);
+        document.body.style.backgroundImage = `url(${nmm.app.config.tileURL})`;
+
+        if (nmm.app.config.DOMElements) {
+            let div = new nmm.dom.Div();
+        }
     }
 
     _setupPIXI() {
@@ -94,15 +115,11 @@ nmm.engine.Application = class {
         document.body.appendChild(this._pixi.view);
     }
 
-    _setupDocument () {
-        document.body.style.backgroundColor = PIXI.utils.hex2string(nmm.app.config.backgroundColorDocument);
-        document.body.style.backgroundImage = `url(${nmm.app.config.tileURL})`;
-    }
-
     init() {
-        this._setupDocument();
+        nmm.observer = new nmm.engine.Observer();
         this._setupPIXI();
         this._resizeApp();
+        this._setupDOM();
         this._setAssetsLoader();
         this._setFSM();
     }

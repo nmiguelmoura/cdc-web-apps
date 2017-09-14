@@ -11,6 +11,5 @@ nmm.states.specificStates.views = {};
 nmm.states.specificStates.models = {};
 
 nmm.app = {};
-nmm.tools = {};
-nmm.utils = {};
+nmm.dom = {};
 nmm.runtime = {};

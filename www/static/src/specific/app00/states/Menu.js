@@ -7,16 +7,14 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
     constructor () {
         super();
         this.name = 'menu';
+    }
 
+    _init () {
         var n = new PIXI.Graphics();
         n.beginFill(0x0000FF, 1)
             .drawRect(0, 0, 100, 100)
             .endFill();
 
         this.addChild(n);
-    }
-
-    _init () {
-
     }
 };
