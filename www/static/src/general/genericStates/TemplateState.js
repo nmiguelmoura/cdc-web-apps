@@ -37,6 +37,10 @@ nmm.states.genericStates.TemplateState = class TemplateState extends PIXI.Contai
         });
     }
 
+    setParams () {
+
+    }
+
     _init () {
         // This method is meant to be override by the classes that inherit from this one.
     }

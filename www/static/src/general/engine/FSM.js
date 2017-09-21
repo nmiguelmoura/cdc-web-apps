@@ -71,7 +71,7 @@ nmm.engine.FSM = class {
         }
     }
 
-    changeState(targetStateName) {
+    changeState(targetStateName, options) {
         targetStateName = this._lowerCaseName(targetStateName);
 
         console.log('-> Change to state: ', targetStateName);
@@ -83,6 +83,7 @@ nmm.engine.FSM = class {
         let newState = this.getStateByName(targetStateName);
         if (newState) {
             newState.init();
+            newState.setParams(options);
             newState.animateIn();
             this._stage.addChild(newState);
             this._state = newState;
@@ -103,13 +104,28 @@ nmm.engine.FSM = class {
     }
 
     _startMachine() {
+        // Loading.
         var loadingState = new nmm.states.genericStates.Loading();
         this.registerState(loadingState);
         this.changeState(loadingState.name);
 
+        // Logo.
         this.registerState(new nmm.states.genericStates.Logo());
 
+        // Menu.
         this.registerState(new nmm.states.specificStates.Menu());
+
+        // Medals.
+        this.registerState(new nmm.states.specificStates.Medals());
+
+        // Tab selection.
+        this.registerState(new nmm.states.specificStates.TabSelection());
+
+        // Difficulty selection.
+        this.registerState(new nmm.states.specificStates.DifficultySelection());
+
+        // Game one and two.
+        this.registerState(new nmm.states.specificStates.GameOne());
     }
 
     init() {

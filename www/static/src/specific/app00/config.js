@@ -16,14 +16,20 @@ nmm.app.config = {
     backgroundColorPIXI: null,
 
     // Set DOM elements. Create a div aligned and resizable with the canvas.
-    DOMElements: true,
+    DOMElements: false,
 
     // URL for textures.
     textures: {
         // Set url for spriteSheets.
         spriteSheets: {
-            ss1: ['static/assets/specific/app00/atlas00@1x.json'],
-            ss2: ['static/assets/specific/app00/atlas00@2x.json', 'static/assets/specific/app00/atlas01@2x.json']
+            ss1: [
+                'static/assets/specific/app00/images/sprites/atlas00@1x.json'
+            ],
+            ss2: [
+                'static/assets/specific/app00/images/sprites/atlas00@2x.json',
+                'static/assets/specific/app00/images/sprites/atlas01@2x.json',
+                'static/assets/specific/app00/images/sprites/atlas02@2x.json'
+            ]
         },
 
         // Set url for logo.
@@ -57,7 +63,7 @@ nmm.app.config = {
 
         // Import data for audio sprites.
         spriteSheets: [
-            {
+            /*{
                 "src": "static/assets/specific/app00/audioSprite_.mp3",
                 "data": {
                     "audioSprite": [
@@ -83,7 +89,7 @@ nmm.app.config = {
                         }
                     ]
                 }
-            }
+            }*/
         ]
     }
 };

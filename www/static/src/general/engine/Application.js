@@ -117,6 +117,9 @@ nmm.engine.Application = class {
 
     init() {
         nmm.observer = new nmm.engine.Observer();
+        nmm.dataModel = new nmm.app.DataModel();
+        nmm.dataModel.init();
+
         this._setupPIXI();
         this._resizeApp();
         this._setupDOM();

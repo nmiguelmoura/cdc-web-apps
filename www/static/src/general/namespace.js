@@ -12,4 +12,5 @@ nmm.states.specificStates.models = {};
 
 nmm.app = {};
 nmm.dom = {};
+nmm.components = {};
 nmm.runtime = {};

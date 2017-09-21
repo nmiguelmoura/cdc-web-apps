@@ -9,12 +9,45 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
         this.name = 'menu';
     }
 
-    _init () {
-        var n = new PIXI.Graphics();
-        n.beginFill(0x0000FF, 1)
-            .drawRect(0, 0, 100, 100)
-            .endFill();
+    _stateIn () {
+        this._view.enableBtns();
+    }
 
-        this.addChild(n);
+    changeState (stateName) {
+        this._view.disableBtns();
+
+        switch (stateName) {
+            case 'game-1':
+                nmm.runtime.app.fsm.changeState('tab-selection', {
+                    game: "game-1"
+                });
+                break;
+
+            case 'game-2':
+                nmm.runtime.app.fsm.changeState('tab-selection', {
+                    game: "game-2"
+                });
+                break;
+
+            case 'game-3':
+                nmm.runtime.app.fsm.changeState('difficulty-selection', {
+                    game: "game-3"
+                });
+                break;
+
+            default:
+                //This on for medals and game-4
+                nmm.runtime.app.fsm.changeState(stateName);
+                break;
+        }
+    }
+
+    _addView () {
+        this._view = new nmm.states.specificStates.views.MenuView(this);
+        this.addChild(this._view);
+    }
+
+    _init () {
+        this._addView();
     }
 };
