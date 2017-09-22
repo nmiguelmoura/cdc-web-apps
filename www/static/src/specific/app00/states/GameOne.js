@@ -14,6 +14,14 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
         this._newExercise();
     }
 
+    btnClicked (key) {
+        if(key === 'menu') {
+            nmm.runtime.app.fsm.changeState('menu');
+        } else {
+            // Check answer.
+        }
+    }
+
     _newExercise () {
         if (this._model.levelCount < 10) {
             let data = this._model.generateExercise();

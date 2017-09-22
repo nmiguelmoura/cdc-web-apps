@@ -42,7 +42,7 @@ nmm.states.specificStates.views.MedalsView = class MedalsView extends PIXI.Conta
     };
 
     _addInfo () {
-        this._info = new nmm.states.specificStates.views.MedalsTextColumnsView();
+        this._info = new nmm.states.specificStates.components.MedalsTextColumnsView();
         this.addChild(this._info);
     }
 

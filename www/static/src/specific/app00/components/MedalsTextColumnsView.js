@@ -2,7 +2,7 @@
  * Created by Nuno on 20/09/17.
  */
 'use strict';
-nmm.states.specificStates.views.MedalsTextColumnsView = class MedalsTextColumnsView extends PIXI.Container {
+nmm.states.specificStates.components.MedalsTextColumnsView = class MedalsTextColumnsView extends PIXI.Container {
     constructor () {
         super();
         this._columns = {};

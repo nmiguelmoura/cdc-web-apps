@@ -35,11 +35,10 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
     }
 
     _updateComponents (data) {
-
+        this._helperComponent.update(data);
     }
 
     update(data) {
-        console.log(data);
         let FADE_TIME = 0.5;
 
         if(data.term2 === 1) {
@@ -66,7 +65,8 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
     }
 
     _addHelperComponent () {
-
+        this._helperComponent = new nmm.states.specificStates.components.HelperComponent();
+        this.addChild(this._helperComponent);
     }
 
     _addAnswerBtn () {

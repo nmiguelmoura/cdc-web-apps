@@ -2,7 +2,7 @@
 
 "animal_2":
 {
-	"frame": {"x":1,"y":1448,"w":315,"h":337},
+	"frame": {"x":926,"y":1269,"w":315,"h":337},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":315,"h":337},
@@ -10,7 +10,7 @@
 },
 "animal_3":
 {
-	"frame": {"x":1761,"y":1109,"w":208,"h":337},
+	"frame": {"x":1761,"y":1051,"w":208,"h":337},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":208,"h":337},
@@ -18,7 +18,7 @@
 },
 "animal_4":
 {
-	"frame": {"x":1041,"y":1448,"w":177,"h":330},
+	"frame": {"x":735,"y":1485,"w":177,"h":330},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":177,"h":330},
@@ -26,7 +26,7 @@
 },
 "animal_6":
 {
-	"frame": {"x":318,"y":1448,"w":301,"h":337},
+	"frame": {"x":1,"y":1645,"w":301,"h":337},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":301,"h":337},
@@ -34,7 +34,7 @@
 },
 "animal_7":
 {
-	"frame": {"x":850,"y":1448,"w":189,"h":336},
+	"frame": {"x":735,"y":1147,"w":189,"h":336},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":189,"h":336},
@@ -42,7 +42,7 @@
 },
 "animal_8":
 {
-	"frame": {"x":621,"y":1448,"w":227,"h":336},
+	"frame": {"x":1765,"y":375,"w":227,"h":336},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":227,"h":336},
@@ -50,7 +50,7 @@
 },
 "animal_10":
 {
-	"frame": {"x":1761,"y":771,"w":216,"h":336},
+	"frame": {"x":1765,"y":713,"w":216,"h":336},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":216,"h":336},
@@ -66,7 +66,7 @@
 },
 "btn_home_big":
 {
-	"frame": {"x":1117,"y":375,"w":736,"h":196},
+	"frame": {"x":1027,"y":375,"w":736,"h":196},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":196},
@@ -74,7 +74,7 @@
 },
 "btn_icon_arrow":
 {
-	"frame": {"x":1750,"y":1780,"w":168,"h":104},
+	"frame": {"x":565,"y":1816,"w":168,"h":104},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":168,"h":104},
@@ -82,7 +82,7 @@
 },
 "btn_medium":
 {
-	"frame": {"x":1098,"y":573,"w":736,"h":196},
+	"frame": {"x":1027,"y":573,"w":736,"h":196},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":736,"h":196},
@@ -106,7 +106,7 @@
 },
 "btn_option_2":
 {
-	"frame": {"x":1027,"y":1269,"w":732,"h":164},
+	"frame": {"x":1,"y":1147,"w":732,"h":164},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":732,"h":164},
@@ -114,7 +114,7 @@
 },
 "btn_option_3":
 {
-	"frame": {"x":1220,"y":1448,"w":732,"h":164},
+	"frame": {"x":1,"y":1313,"w":732,"h":164},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":732,"h":164},
@@ -122,7 +122,7 @@
 },
 "btn_option_4":
 {
-	"frame": {"x":1220,"y":1614,"w":732,"h":164},
+	"frame": {"x":1,"y":1479,"w":732,"h":164},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":732,"h":164},
@@ -130,7 +130,7 @@
 },
 "certo":
 {
-	"frame": {"x":1,"y":1787,"w":259,"h":236},
+	"frame": {"x":304,"y":1645,"w":259,"h":236},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":259,"h":236},
@@ -138,7 +138,7 @@
 },
 "font-4-blue":
 {
-	"frame": {"x":821,"y":1786,"w":191,"h":256},
+	"frame": {"x":1510,"y":1528,"w":191,"h":256},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":191,"h":256},
@@ -146,7 +146,7 @@
 },
 "font-4-red":
 {
-	"frame": {"x":1196,"y":1780,"w":191,"h":257},
+	"frame": {"x":1510,"y":1269,"w":191,"h":257},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":191,"h":257},
@@ -154,7 +154,7 @@
 },
 "font-4-yellow":
 {
-	"frame": {"x":1389,"y":1780,"w":191,"h":257},
+	"frame": {"x":1243,"y":1269,"w":191,"h":257},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":191,"h":257},
@@ -162,7 +162,7 @@
 },
 "font-7-blue":
 {
-	"frame": {"x":1014,"y":1786,"w":180,"h":256},
+	"frame": {"x":1243,"y":1528,"w":180,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":256},
@@ -170,7 +170,7 @@
 },
 "font-multiply":
 {
-	"frame": {"x":1582,"y":1780,"w":166,"h":169},
+	"frame": {"x":565,"y":1645,"w":166,"h":169},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":166,"h":169},
@@ -178,7 +178,7 @@
 },
 "game_bg_big":
 {
-	"frame": {"x":1,"y":619,"w":1024,"h":512},
+	"frame": {"x":1,"y":375,"w":1024,"h":512},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":512},
@@ -186,7 +186,7 @@
 },
 "game_bg_small":
 {
-	"frame": {"x":1,"y":1133,"w":1024,"h":256},
+	"frame": {"x":1,"y":889,"w":1024,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":256},
@@ -202,7 +202,7 @@
 },
 "medal_3":
 {
-	"frame": {"x":1855,"y":375,"w":88,"h":120},
+	"frame": {"x":926,"y":1147,"w":88,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":10,"w":88,"h":120},
@@ -210,7 +210,7 @@
 },
 "medal_4":
 {
-	"frame": {"x":1855,"y":497,"w":88,"h":120},
+	"frame": {"x":304,"y":1883,"w":88,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":9,"w":88,"h":120},
@@ -218,15 +218,23 @@
 },
 "obj_7":
 {
-	"frame": {"x":262,"y":1787,"w":321,"h":188},
+	"frame": {"x":1703,"y":1390,"w":310,"h":183},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":2,"w":321,"h":188},
+	"spriteSourceSize": {"x":0,"y":2,"w":310,"h":183},
 	"sourceSize": {"w":322,"h":190}
+},
+"obj_9":
+{
+	"frame": {"x":914,"y":1608,"w":174,"h":165},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":174,"h":165},
+	"sourceSize": {"w":174,"h":166}
 },
 "obj_10":
 {
-	"frame": {"x":585,"y":1787,"w":234,"h":184},
+	"frame": {"x":1703,"y":1575,"w":234,"h":184},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":234,"h":184},
@@ -234,7 +242,7 @@
 },
 "sub_title_0":
 {
-	"frame": {"x":1,"y":375,"w":1114,"h":120},
+	"frame": {"x":394,"y":1922,"w":1114,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":1114,"h":120},
@@ -242,7 +250,7 @@
 },
 "sub_title_2":
 {
-	"frame": {"x":1,"y":497,"w":1095,"h":120},
+	"frame": {"x":914,"y":1786,"w":1095,"h":120},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":1095,"h":120},
@@ -253,8 +261,8 @@
 	"version": "1.0",
 	"image": "atlas01@2x.png",
 	"format": "RGBA8888",
-	"size": {"w":1978,"h":2043},
+	"size": {"w":2014,"h":2043},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2ca6e3db132a62fd6789076755029db2:9d1f60532ccfb676aa4e9af908aad690:9f5a1da8976a3ab284453da5bc7d0a62$"
+	"smartupdate": "$TexturePacker:SmartUpdate:b1e3c3f092ba67a113ae851af69d4faf:c4c5b4bfc93526c0f13bf2d15c467f14:9f5a1da8976a3ab284453da5bc7d0a62$"
 }
 }

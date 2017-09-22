@@ -49,5 +49,8 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
 
     _init () {
         this._addView();
+
+        // Initialize pool.
+        nmm.pool = new nmm.tools.Pool(130);
     }
 };
