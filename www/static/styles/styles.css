@@ -54,6 +54,7 @@ body {
     /*background-image: url(../assets/general/tile.png);*/
 }
 
-.app-div {
+.app-div,
+.app-input-field {
     position: absolute;
 }

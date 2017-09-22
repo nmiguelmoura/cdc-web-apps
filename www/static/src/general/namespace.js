@@ -16,3 +16,4 @@ nmm.dom = {};
 nmm.components = {};
 nmm.tools = {};
 nmm.runtime = {};
+nmm.runtime.dom = {};

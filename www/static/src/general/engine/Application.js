@@ -99,6 +99,7 @@ nmm.engine.Application = class {
 
         if (nmm.app.config.DOMElements) {
             let div = new nmm.dom.Div();
+            nmm.runtime.dom.mainDiv = div;
         }
     }
 

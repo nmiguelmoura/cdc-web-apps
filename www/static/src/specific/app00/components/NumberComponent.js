@@ -79,11 +79,15 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
     }
 
     update(term, value, scale) {
-        this.scale.set(1);
-        value = value ? value.toString() : '0';
-        this._adjustNumberOfSprites(value);
-        this._compose(term, value);
-        this.scale.set(scale);
-        //this.update
+        if(arguments.length === 0) {
+            // reset
+            this.clear();
+        } else {
+            this.scale.set(1);
+            value = value >=0 ? value.toString() : '0';
+            this._adjustNumberOfSprites(value);
+            this._compose(term, value);
+            this.scale.set(scale || 1);
+        }
     }
 };

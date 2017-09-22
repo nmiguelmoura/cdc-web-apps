@@ -5,10 +5,10 @@ nmm.dom.Div = class {
     constructor(options) {
         options = options || {};
 
-        return this._buildDiv(options);
+        return this._build(options);
     }
 
-    _buildDiv(options) {
+    _build(options) {
         this.div = document.createElement('div');
         this.div.options = {
             parentDiv: options.parentDiv || document.body,

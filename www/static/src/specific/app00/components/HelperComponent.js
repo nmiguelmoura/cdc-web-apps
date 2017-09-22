@@ -38,6 +38,12 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
         this._init();
     }
 
+    clear() {
+        this._container.term1.clear();
+        this._container.term2.clear();
+        this._container.food.clear();
+    }
+
     update(data) {
         this._textures.animals[data.term1] = this._textures.animals[data.term1] || PIXI.Texture.fromFrame('animal_' + data.term1);
         this._animal.texture = this._textures.animals[data.term1];

@@ -16,7 +16,7 @@ nmm.app.config = {
     backgroundColorPIXI: null,
 
     // Set DOM elements. Create a div aligned and resizable with the canvas.
-    DOMElements: false,
+    DOMElements: true,
 
     // URL for textures.
     textures: {
