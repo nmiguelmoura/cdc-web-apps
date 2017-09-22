@@ -12,6 +12,7 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
 
     _stateOut() {
         this._view.clear();
+        this._view.disableBtns();
     }
 
     animateIn () {
@@ -52,19 +53,33 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
         return this._model.game;
     }
 
+    _endGame () {
+        nmm.runtime.app.fsm.changeState('game-over', {
+            stateToGoAfter: 'tab-selection',
+            game: this._model.game,
+            success: true
+        });
+    }
+
     _newExercise () {
         if (this._model.levelCount < 10) {
             let data = this._model.generateExercise();
             this._view.update(data);
         } else {
-            console.log('END EXERCISE');
 
-            let medal = nmm.dataModel.storeMedal(this._model.game === 'game-1' ? 1 : 2, this._model.level);
+            let game = this._model.game === 'game-1' ? 1 : 2;
+            let medal = nmm.dataModel.storeMedal(game, this._model.level);
             if(medal) {
-
+                this._view.showMedal(game, this._model.level);
+                this._delayedTween = TweenLite.delayedCall(2, function () {
+                    this._endGame();
+                }, [], this);
+            }
+            else {
+                this._endGame();
             }
 
-            // TODO: CHANGE STATE TO FINAL.
+
         }
     }
 

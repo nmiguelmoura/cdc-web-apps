@@ -3,7 +3,7 @@
  */
 'use strict';
 nmm.correctionTextures = {};
-nmm.states.specificStates.components.CorrectionMC = class CorrectionMC extends PIXI.extras.AnimatedSprite {
+nmm.components.CorrectionMC = class CorrectionMC extends PIXI.extras.AnimatedSprite {
     constructor() {
         nmm.correctionTextures.correct = nmm.correctionTextures.correct || PIXI.Texture.fromFrame('certo');
         nmm.correctionTextures.wrong = nmm.correctionTextures.wrong || PIXI.Texture.fromFrame('errado');

@@ -155,7 +155,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     }
 
     _addCorrectionMC() {
-        this._correction = new nmm.states.specificStates.components.CorrectionMC();
+        this._correction = new nmm.components.CorrectionMC();
         this.addChild(this._correction);
     }
 

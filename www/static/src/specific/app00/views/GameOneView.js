@@ -43,6 +43,10 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         }, [], this);
     }
 
+    showMedal(game, level) {
+        this._medalPopup.show(game, level);
+    }
+
     allowNewAnswer() {
         this._expressionComponent.resetAnswer(this._controller.currentGameType);
         this._answerBtn.show();
@@ -87,6 +91,16 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this._controller.btnClicked(key);
     };
 
+    _addMedalPopupComponent() {
+        this._medalPopup = new nmm.components.MedalPopupComponent([
+            PIXI.Texture.fromFrame('medal_1'),
+            PIXI.Texture.fromFrame('medal_2'),
+            PIXI.Texture.fromFrame('medal_3'),
+            PIXI.Texture.fromFrame('medal_4')
+        ]);
+        this.addChild(this._medalPopup);
+    }
+
     _addExpressionComponent () {
         this._expressionComponent = new nmm.states.specificStates.components.ExpressionComponent();
         this._expressionComponent.y = 462;
@@ -128,5 +142,6 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this._addAnswerBtn();
         this._addHelperComponent();
         this._addExpressionComponent();
+        this._addMedalPopupComponent();
     }
 };
