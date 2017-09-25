@@ -8,11 +8,11 @@ nmm.components.MedalPopupComponent = class MedalPopupComponent extends PIXI.Cont
         this._frames = frames;
         this._textStyle = {
             fontFamily: 'Arial',
-            fontSize: '20px',
+            fontSize: '16px',
             fill: 0x000000,
             wordWrap: true,
             wordWrapWidth: 160,
-            lineHeight: 30
+            lineHeight: 24
         };
         this._init();
     }
@@ -26,7 +26,7 @@ nmm.components.MedalPopupComponent = class MedalPopupComponent extends PIXI.Cont
 
     _addField() {
         this._field = new PIXI.Text('', this._textStyle);
-        this._field.position.set(60, 7);
+        this._field.position.set(60, 12);
         this.addChild(this._field);
     }
 

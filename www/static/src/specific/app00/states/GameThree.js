@@ -1,12 +1,11 @@
 /**
- * Created by Nuno on 21/09/17.
+ * Created by Nuno on 25/09/17.
  */
 'use strict';
-nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStates.TemplateState {
-
+nmm.states.specificStates.GameThree = class GameThree extends nmm.states.genericStates.TemplateState {
     constructor() {
         super();
-        this.name = 'game-1';
+        this.name = 'game-3';
         this._delayedTween = null;
     }
 
@@ -15,15 +14,16 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
         this._view.disableBtns();
     }
 
-    animateIn () {
+    animateIn() {
         super.animateIn();
-        this._newExercise();
+        this._newExercise(true);
+        nmm.dataModel.breakScoreChain();
     }
 
-    btnClicked (key) {
-        if(key === 'menu') {
+    btnClicked(key) {
+        if (key === 'menu') {
             this._view.disableBtns();
-            if(this._delayedTween) {
+            if (this._delayedTween) {
                 this._delayedTween.kill();
             }
 
@@ -35,14 +35,29 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
 
             if (result) {
                 this._view.showCorrect();
+                let scoreStored = nmm.dataModel.storeCorrect();
+
                 if(this._model.current.hidden === 'term2') {
                     this._view.updateFinalValue('term2', answer);
                 }
+
+                let scoreMedal = this._model.checkMedalScore(scoreStored.correct),
+                    chainMedal = this._model.checkMedalChain(scoreStored.correctChain);
+
+                if (scoreMedal && nmm.dataModel.storeMedal(3, scoreMedal)) {
+                    this._view.showMedal(3, scoreMedal);
+                }
+
+                if (chainMedal && nmm.dataModel.storeMedal(3, chainMedal)) {
+                    this._view.showMedal(3, chainMedal);
+                }
+
                 this._delayedTween = TweenLite.delayedCall(2, function () {
                     this._newExercise();
                 }, [], this);
             } else {
                 this._view.showWrong();
+                nmm.dataModel.breakScoreChain();
                 this._delayedTween = TweenLite.delayedCall(2, function () {
                     this._view.allowNewAnswer();
                 }, [], this);
@@ -62,50 +77,23 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
         return this._model.current.hidden;
     }
 
-    _endGame () {
-        nmm.runtime.app.fsm.changeState('game-over', {
-            stateToGoAfter: 'tab-selection',
-            game: this._model.game,
-            success: true
-        });
+    _newExercise(firstOne) {
+        let data = this._model.generateExercise();
+        this._view.update(data, firstOne);
     }
 
-    _newExercise () {
-        if (this._model.levelCount < 10) {
-            let data = this._model.generateExercise();
-            this._view.update(data);
-        } else {
-
-            let game = this._model.game === 'game-1' ? 1 : 2;
-            let medal = nmm.dataModel.storeMedal(game, this._model.level);
-            if(medal) {
-                this._view.showMedal(game, this._model.level);
-                this._delayedTween = TweenLite.delayedCall(2, function () {
-                    this._endGame();
-                }, [], this);
-            }
-            else {
-                this._endGame();
-            }
-
-
-        }
-    }
-
-    _addView () {
-        this._view = new nmm.states.specificStates.views.GameOneView(this);
+    _addView() {
+        this._view = new nmm.states.specificStates.views.GameThreeView(this);
         this.addChild(this._view);
     }
 
-    setParams (options) {
+    setParams(options) {
         this._model.game = options.game;
-        this._model.level = options.level;
-        this._model.levelCount = 0;
+        this._model.difficulty = options.difficulty;
     }
 
     _init() {
-        this._model = new nmm.states.specificStates.models.GameOneModel();
+        this._model = new nmm.states.specificStates.models.GameThreeModel();
         this._addView();
-    }
-
+    };
 };

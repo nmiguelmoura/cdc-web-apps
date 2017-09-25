@@ -96,7 +96,6 @@ nmm.components.Button = class Button extends PIXI.Sprite {
     }
 
     _keyHandler(event) {
-        console.log('up');
         if(event.keyCode === this.keyCode) {
             this.callback('UP', this.key, this, event);
 

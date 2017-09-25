@@ -26,9 +26,11 @@ nmm.states.specificStates.DifficultySelection = class DifficultySelection extend
             nmm.runtime.app.fsm.changeState('menu');
         } else {
             this._gameToGo = this._gameToGo || 'game-3';
+
+            // Go to state 1. Game 3 shares state with game 1 and 2.
             nmm.runtime.app.fsm.changeState(this._gameToGo, {
                 game: this._gameToGo,
-                level: key
+                difficulty: key
             });
         }
     }

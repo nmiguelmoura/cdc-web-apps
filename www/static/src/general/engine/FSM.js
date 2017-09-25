@@ -127,6 +127,9 @@ nmm.engine.FSM = class {
         // Game one and two.
         this.registerState(new nmm.states.specificStates.GameOne());
 
+        // Game three.
+        this.registerState(new nmm.states.specificStates.GameThree());
+
         // End game.
         this.registerState(new nmm.states.specificStates.GameOver());
     }

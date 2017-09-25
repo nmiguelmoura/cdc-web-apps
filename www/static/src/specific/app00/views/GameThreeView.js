@@ -1,12 +1,11 @@
 /**
- * Created by Nuno on 21/09/17.
+ * Created by Nuno on 25/09/17.
  */
 'use strict';
-nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Container {
+nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI.Container {
     constructor(controller) {
         super();
         this._controller = controller;
-
         this._init();
     }
 
@@ -19,12 +18,12 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         return this._expressionComponent.inputField.getValue();
     }
 
-    disableBtns () {
+    disableBtns() {
         this._homeBtn.disable();
         this._answerBtn.disable();
     }
 
-    enableBtns () {
+    enableBtns() {
         this._homeBtn.enable();
         this._answerBtn.show();
     }
@@ -60,28 +59,34 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this._expressionComponent.correctAnswer();
     }
 
-    _updateComponents (data) {
-        this._helperComponent.update(data);
+    _updateComponents(data) {
+        if (data.difficulty === 1) {
+            this._helperComponent.update(data);
+        }
         this._expressionComponent.update(data);
         this._expressionComponent.position.x = 512 - this._expressionComponent.getBounds().width / 2;
         this._expressionComponent.repositionInputField(data);
     }
 
-    update(data) {
+    update(data, firstOne) {
         let FADE_TIME = 0.2;
 
-        if(data.term2 === 1) {
-            // Update components.
+        if (firstOne) {
             this._updateComponents(data);
-            this._fadeInComponents();
+            this._fadeInComponents(data);
+
+            if (data.difficulty === 1) {
+                this._helperComponent.visible = true;
+                this._expressionComponent.y = 462;
+            } else {
+                this._helperComponent.visible = false;
+                this._expressionComponent.y = 250;
+            }
         } else {
-            //this._updateComponents(data);
-            //this._answerBtn.show();
             this._fadeOutComponents(FADE_TIME);
             TweenLite.delayedCall(FADE_TIME, function () {
                 // Update components.
                 this._updateComponents(data);
-
                 this._fadeInComponents();
             }, [], this);
         }
@@ -91,7 +96,7 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this._helperComponent.updateFinalValue(term, value);
     }
 
-    _callback (type, key, btn, event) {
+    _callback(type, key, btn, event) {
         this._controller.btnClicked(key);
     };
 
@@ -105,19 +110,18 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this.addChild(this._medalPopup);
     }
 
-    _addExpressionComponent () {
+    _addExpressionComponent() {
         this._expressionComponent = new nmm.states.specificStates.components.ExpressionComponent();
-        this._expressionComponent.y = 462;
         this._expressionComponent.scale.set(0.8);
         this.addChild(this._expressionComponent);
     }
 
-    _addHelperComponent () {
+    _addHelperComponent() {
         this._helperComponent = new nmm.states.specificStates.components.HelperComponent();
         this.addChild(this._helperComponent);
     }
 
-    _addAnswerBtn () {
+    _addAnswerBtn() {
         this._answerBtn = new nmm.components.TexturedButton({
             texture: PIXI.Texture.fromFrame('btn_answer'),
             x: 333,
@@ -130,7 +134,7 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
         this.addChild(this._answerBtn);
     }
 
-    _addHomeBtn () {
+    _addHomeBtn() {
         this._homeBtn = new nmm.components.TexturedButton({
             texture: PIXI.Texture.fromFrame('btn_icon_home'),
             x: 10,

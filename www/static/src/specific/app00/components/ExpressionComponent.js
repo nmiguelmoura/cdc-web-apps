@@ -10,7 +10,6 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this.EQUAL_WIDTH = 78;
         this.SPACING = 50;
 
-        this._term1Dim = null;
         this._correctionPos = null;
 
         this._init();
@@ -25,10 +24,12 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
     updateNumber(term, value) {
         let object;
-        if (term === 'game-1') {
+        if (term === 'result') {
             object = this._result;
-        } else if (term === 'game-2') {
+        } else if (term === 'term2') {
             object = this._term2;
+        } else if (term === 'term1') {
+            object = this._term1;
         }
 
         if(value !== undefined && value !== null && value !== "") {
@@ -41,16 +42,18 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     update(data) {
         this.resetInput();
         this._correction.hide();
-        this._term1.update(1, data.term1, 1);
-        this._term2.update(2, data.term2, 1);
-        this._result.update(3, data.result, 1);
+        this._term1.update('term1', data.term1, 1);
+        this._term2.update('term2', data.term2, 1);
+        this._result.update('result', data.result, 1);
 
         this._repositionElements(data);
 
-        if (data.game === 'game-1') {
+        if (data.hidden === 'result') {
             this._result.update();
-        } else if (data.game === 'game-2') {
+        } else if (data.hidden === 'term2') {
             this._term2.update();
+        } else if(data.hidden === 'term1') {
+            this._term1.update();
         }
     }
 
@@ -65,10 +68,10 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
                 value = value.substring(0, gameData.term2.toString().length);
             }
 
-            this.updateNumber(gameData.game, value);
+            this.updateNumber(gameData.hidden, value);
 
         } else {
-            this.updateNumber(gameData.game, value);
+            this.updateNumber(gameData.hidden, value);
         }
         this.inputField.setValue(value);
     };
@@ -89,22 +92,26 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this.inputField.hide();
     }
 
-    resetAnswer(game) {
+    resetAnswer(hidden) {
         this.resetInput();
 
-        if (game === 'game-1') {
+        if (hidden === 'result') {
             this._result.update();
-        } else if (game === 'game-2') {
+        } else if (hidden === 'term2') {
             this._term2.update();
+        } else if(hidden === 'term1') {
+            this._term1.update();
         }
     }
 
     repositionInputField(data) {
         let pos;
-        if(data.game === 'game-1') {
+        if(data.hidden === 'result') {
             pos = this.toGlobal(this._result.position);
-        } else if (data.game === 'game-2') {
+        } else if (data.hidden === 'term2') {
             pos = this.toGlobal(this._term2.position);
+        } else if (data.hidden === 'term1') {
+            pos = this.toGlobal(this._term1.position);
         }
         this.inputField.setPosition({
             left: pos.x,
@@ -112,15 +119,24 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         })
     }
 
+    _repositionLine(x, width) {
+        this._line.position.x = x -20;
+        this._line.width = width + 40;
+    }
+
     _repositionElements(data) {
-        if (data.term2 === 1) {
-            // Its the first exercise in the row.
-            // Update term1 dimensions.
-            this._term1Dim = this._term1.getBounds();
-        }
-        let term2Dim = this._term2.getBounds(),
+        // Update term1 dimensions.
+        let term1Dim = this._term1.getBounds(),
+            term2Dim = this._term2.getBounds(),
             resultDim = this._result.getBounds(),
-            increment = this._term1Dim.width + this.SPACING;
+            increment = term1Dim.width + this.SPACING;
+
+        if(data.hidden === 'term1') {
+            this._repositionLine(0, term1Dim.width);
+            this.inputField.setDimensions({
+                width: term1Dim.width + 40
+            });
+        }
 
         // Position multiply.
         this._multiply.position.x = increment;
@@ -128,11 +144,10 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         // Position term2.
         this._term2.position.x = increment;
-        if (data.game === 'game-2') {
-            this._line.position.x = increment -20;
-            this._line.width = term2Dim.width + 40;
+        if (data.hidden === 'term2') {
+            this._repositionLine(increment, term2Dim.width);
             this.inputField.setDimensions({
-                width: term2Dim.width
+                width: term2Dim.width + 40
             });
             this._correctionPos = this._term2.position.x + term2Dim.width / 2;
         }
@@ -144,11 +159,10 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         // Position result.
         this._result.position.x = increment;
-        if (data.game === 'game-1') {
-            this._line.position.x = increment;
-            this._line.width = resultDim.width;
+        if (data.hidden === 'result') {
+            this._repositionLine(increment, resultDim.width);
             this.inputField.setDimensions({
-                width: resultDim.width
+                width: resultDim.width + 40
             });
             this._correctionPos = this._result.position.x + resultDim.width / 2;
         }

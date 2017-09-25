@@ -44,14 +44,26 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
         this._container.food.clear();
     }
 
+    updateFinalValue(term, value) {
+        term = term || 'term2';
+
+        //only really needed for term 2.
+        this._container[term].update(term, value, this.NUMBER_SCALE);
+    }
+
     update(data) {
         this._textures.animals[data.term1] = this._textures.animals[data.term1] || PIXI.Texture.fromFrame('animal_' + data.term1);
         this._animal.texture = this._textures.animals[data.term1];
 
         this._container.food.update(data.term1, data.term2, data.result);
 
-        this._container.term1.update(1, data.term1, this.NUMBER_SCALE);
-        this._container.term2.update(2, data.term2, this.NUMBER_SCALE);
+        this._container.term1.update('term1', data.term1, this.NUMBER_SCALE);
+
+        if(data.hidden === 'term2') {
+            this._container.term2.updateInt('term2', this.NUMBER_SCALE);
+        } else {
+            this._container.term2.update('term2', data.term2, this.NUMBER_SCALE);
+        }
 
         this._container.food.scale.set(Math.min(this.MAX_SCALING[data.term1], (1.06 - 0.07 * data.term2)));
 
@@ -70,10 +82,6 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
             .lineTo(this.FOOD_POSITION.x + foodDim.width, 20)
             .moveTo(20, this.FOOD_POSITION.y)
             .lineTo(20, this.FOOD_POSITION.y + foodDim.height);
-
-        if (data.game === 'game-2') {
-            this._container.term2.visible = false;
-        }
 
         let containerDim = this._container.getBounds();
         this._container.position.set(this.CONTAINER_CENTER.x - containerDim.width / 2, this.CONTAINER_CENTER.y - containerDim.height / 2);

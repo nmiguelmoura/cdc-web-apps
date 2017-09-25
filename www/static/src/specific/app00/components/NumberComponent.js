@@ -28,16 +28,13 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
             color;
 
         switch (term) {
-            case 1:
-            case 'game-3':
+            case 'term1':
                 color = 'red';
                 break;
-            case 2:
-            case 'game-2':
+            case 'term2':
                 color = 'yellow';
                 break;
-            case 3:
-            case 'game-1':
+            case 'result':
             default:
                 color = 'blue';
                 break;
@@ -79,6 +76,14 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
                 this.addChild(sp);
             }
         }
+    }
+
+    updateInt(term, scale) {
+        this.scale.set(1);
+        let value = 'i';
+        this._adjustNumberOfSprites(value);
+        this._compose(term, 'i');
+        this.scale.set(scale || 1);
     }
 
     update(term, value, scale) {

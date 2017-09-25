@@ -15,6 +15,10 @@ nmm.states.specificStates.models.GameOneModel = class GameOneModel {
         // Always starts at 0.
         this.levelCount = 0;
 
+        // Game difficulty.
+        // To be used only in game 3.
+        this.difficulty = null;
+
         // Variable to store current game data.
         this.current = null;
     }
@@ -23,6 +27,7 @@ nmm.states.specificStates.models.GameOneModel = class GameOneModel {
         this.levelCount++;
         this.current = {
             game: this.game,
+            hidden: this.game === 'game-1' ? 'result' : 'term2',
             term1: this.level,
             term2: this.levelCount,
             result: this.level * this.levelCount
