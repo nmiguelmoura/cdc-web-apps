@@ -4,12 +4,13 @@
 
 'use strict';
 nmm.states.genericStates.Loading = class Loading extends nmm.states.genericStates.TemplateState {
-    constructor () {
+    constructor() {
         super();
         this.name = 'loading';
+        this._toDestroy = false;
     }
 
-    destroy () {
+    destroy() {
         this.removeChild(this._view);
         this._view.destroy();
         this._view = null;
@@ -20,17 +21,26 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
         });
     }
 
-    _stateOut () {
-        nmm.runtime.app.fsm.destroyState(this.name);
+    _stateOut() {
+        this._stateToGo = null;
+        if(nmm.app.config.destroyLoadingAfterInit || this._toDestroy) {
+            nmm.runtime.app.fsm.destroyState(this.name);
+        }
     };
 
-    animateOut () {
+    animateOut() {
         this._view.endLoading();
         super.animateOut();
     }
 
-    _assetsLoaded () {
-        console.log('... Loading assets successful');
+    _secondaryAssetsLoaded() {
+        console.log('... Loading secondary assets successful');
+
+        nmm.runtime.app.fsm.changeState(this._stateToGo);
+    }
+
+    _primaryAssetsLoaded() {
+        console.log('... Loading primary assets successful');
 
         // TODO remove comment signs.
         //nmm.runtime.app.fsm.changeState('logo');
@@ -39,18 +49,27 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
         nmm.runtime.app.fsm.changeState('menu');
     }
 
-    _loadAssets () {
-        nmm.runtime.app.assetsLoader.init(this._assetsLoaded.bind(this));
+    loadSecondaryAssets(assets, stateToGo, destroyLoading) {
+        this._stateToGo = stateToGo;
+        this._toDestroy = destroyLoading;
+
+        this._view.reset();
+
+        nmm.runtime.app.assetsLoader.loadExtraTextures(assets, this._secondaryAssetsLoaded.bind(this));
     }
 
-    _addView () {
+    _loadPrimaryAssets() {
+        nmm.runtime.app.assetsLoader.init(this._primaryAssetsLoaded.bind(this));
+    }
+
+    _addView() {
         this._view = new nmm.states.genericStates.views.LoadingView();
         this.addChild(this._view);
         this._view.startLoading();
     }
 
-    _init () {
+    _init() {
         this._addView();
-        this._loadAssets();
+        this._loadPrimaryAssets();
     }
 };

@@ -3,6 +3,9 @@
  */
 'use strict';
 nmm.app.config = {
+    // Set if loading state is to be destroyed after initial loading,
+    // or to be kept to load more assets.
+    destroyLoadingAfterInit: false,
     // Set color for html body.
     backgroundColorDocument: 0x1ABC9C,
 
@@ -47,6 +50,59 @@ nmm.app.config = {
             }*/
         ]
     },
+
+    gameFourTexturePackage: [
+        {
+            label: 'level-1',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_1.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_1.jpg'
+        },
+        {
+            label: 'level-2',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_2.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_2.jpg'
+        },
+        {
+            label: 'level-3',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_3.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_3.jpg'
+        },
+        {
+            label: 'level-4',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_4.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_4.jpg'
+        },
+        {
+            label: 'level-5',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_5.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_5.jpg'
+        },
+        {
+            label: 'level-6',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_6.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_6.jpg'
+        },
+        {
+            label: 'level-7',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_7.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_7.jpg'
+        },
+        {
+            label: 'level-8',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_8.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_8.jpg'
+        },
+        {
+            label: 'level-9',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_9.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_9.jpg'
+        },
+        {
+            label: 'level-10',
+            ss1: 'static/assets/specific/app00/images/loose/game_animal_10.jpg',
+            ss2: 'static/assets/specific/app00/images/loose/game_animal_10.jpg'
+        }
+    ],
 
     // URL and data for audio.
     audio: {

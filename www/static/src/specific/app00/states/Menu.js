@@ -13,6 +13,19 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
         this._view.enableBtns();
     }
 
+    _checkIfPackageLoaded () {
+        let key,
+            resources = nmm.runtime.app.assetsLoader.loader.resources;
+        for(key in resources) {
+            if(resources.hasOwnProperty(key)) {
+                if(resources[key].name === nmm.app.config.gameFourTexturePackage[0].label) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     changeState (stateName) {
         this._view.disableBtns();
 
@@ -35,8 +48,17 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
                 });
                 break;
 
+            case 'game-4':
+                if(this._checkIfPackageLoaded()) {
+
+                } else {
+                    nmm.runtime.app.fsm.changeState('loading');
+                    nmm.runtime.app.fsm.getStateByName('loading').loadSecondaryAssets(nmm.app.config.gameFourTexturePackage, 'game-4', true);
+                }
+                break;
+
             default:
-                //This on for medals and game-4
+                // This on for medals.
                 nmm.runtime.app.fsm.changeState(stateName);
                 break;
         }

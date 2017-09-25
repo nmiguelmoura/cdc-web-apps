@@ -11,6 +11,11 @@ nmm.states.genericStates.views.LoadingView = class LoadingView extends PIXI.Cont
         this._init ();
     }
 
+    reset() {
+        this._loadingIcon.scale.set(0.5);
+        this.startLoading();
+    }
+
     update () {
         this._loadingIcon.rotation += this.INCREMENT_ROTATION;
     }

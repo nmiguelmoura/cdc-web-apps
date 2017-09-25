@@ -15,6 +15,8 @@ nmm.engine.AssetsLoader = class {
         this._texturesLoaded = false;
         this._audioLoaded = false;
 
+        this._dpr = nmm.runtime.app.devicePixelRatio <= 2 ? Math.round(nmm.runtime.app.devicePixelRatio) : 2;
+
         return nmm.runtime.singletons.assetsLoader;
     }
 
@@ -67,22 +69,21 @@ nmm.engine.AssetsLoader = class {
     }
 
     _loadTextures () {
-        var self = this,
-            dpr = nmm.runtime.app.devicePixelRatio;
+        var self = this;
 
         this._loader = PIXI.loader;
 
-        nmm.app.config.textures.spriteSheets['ss' + dpr].forEach(function (sprite) {
+        nmm.app.config.textures.spriteSheets['ss' + this._dpr].forEach(function (sprite) {
             self._loader.add(sprite);
         });
 
-        if (nmm.app.config.textures.logo['ss' + dpr]) {
-            self._loader.add('logo', nmm.app.config.textures.logo['ss' + dpr]);
+        if (nmm.app.config.textures.logo['ss' + this._dpr]) {
+            self._loader.add('logo', nmm.app.config.textures.logo['ss' + this._dpr]);
         }
 
         if (nmm.app.config.textures.otherTextures.length > 0) {
             nmm.app.config.textures.otherTextures.forEach(function (texture) {
-                self._loader.add(texture.label, texture['ss1']);
+                self._loader.add(texture.label, texture['ss' + this._dpr]);
             });
         }
 
@@ -90,6 +91,23 @@ nmm.engine.AssetsLoader = class {
             self._texturesLoaded = true;
             self._loadComplete();
         });
+    }
+
+    loadExtraTextures(assets, callback) {
+        var self = this;
+        // This method should be used to load loose images only.
+        // Sprites for images and audio should go on init.
+
+        if (assets.length > 0) {
+            assets.forEach(function (texture) {
+                self._loader.add(texture.label, texture['ss' + self._dpr]);
+            });
+        }
+
+        this._loader.load(function (loader, resources) {
+            callback();
+        });
+
     }
 
     init(callback) {
