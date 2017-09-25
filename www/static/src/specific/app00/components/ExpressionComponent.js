@@ -62,7 +62,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             if(gameData.game === 'game-1') {
                 value = value.substring(0, 3);
             } else if (gameData.game === 'game-2') {
-                value = value.substring(0, gameData._term2.toString().length);
+                value = value.substring(0, gameData.term2.toString().length);
             }
 
             this.updateNumber(gameData.game, value);
@@ -128,15 +128,15 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         // Position term2.
         this._term2.position.x = increment;
-        increment += term2Dim.width + this.SPACING;
         if (data.game === 'game-2') {
-            this._line.position.x = increment;
-            this._line.width = term2Dim.width;
+            this._line.position.x = increment -20;
+            this._line.width = term2Dim.width + 40;
             this.inputField.setDimensions({
-                width: term2D.width
+                width: term2Dim.width
             });
             this._correctionPos = this._term2.position.x + term2Dim.width / 2;
         }
+        increment += term2Dim.width + this.SPACING;
 
         // Position equal sign.
         this._equal.position.x = increment;

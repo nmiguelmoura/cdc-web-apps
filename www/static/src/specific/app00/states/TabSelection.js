@@ -26,7 +26,9 @@ nmm.states.specificStates.TabSelection = class TabSelection extends nmm.states.g
             nmm.runtime.app.fsm.changeState('menu');
         } else {
             this._gameToGo = this._gameToGo || 'game-1';
-            nmm.runtime.app.fsm.changeState(this._gameToGo, {
+
+            // Use game-1 in state because game 1 and 2 share the same state.
+            nmm.runtime.app.fsm.changeState('game-1', {
                 game: this._gameToGo,
                 level: key
             });

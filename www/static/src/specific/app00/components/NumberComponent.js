@@ -29,12 +29,15 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
 
         switch (term) {
             case 1:
+            case 'game-3':
                 color = 'red';
                 break;
             case 2:
+            case 'game-2':
                 color = 'yellow';
                 break;
             case 3:
+            case 'game-1':
             default:
                 color = 'blue';
                 break;

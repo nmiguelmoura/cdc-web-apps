@@ -120,7 +120,8 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
             y: 652,
             key: 'answer',
             autoHide: true,
-            callback: this._callbackBound
+            callback: this._callbackBound,
+            keyCode: 13
         });
         this.addChild(this._answerBtn);
     }

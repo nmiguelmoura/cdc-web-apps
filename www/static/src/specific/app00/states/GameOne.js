@@ -23,7 +23,9 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
     btnClicked (key) {
         if(key === 'menu') {
             this._view.disableBtns();
-            this._delayedTween.kill();
+            if(this._delayedTween) {
+                this._delayedTween.kill();
+            }
 
             nmm.runtime.app.fsm.changeState('menu');
         } else {

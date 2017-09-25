@@ -3,7 +3,7 @@
  */
 'use strict';
 nmm.components.Button = class Button extends PIXI.Sprite {
-    constructor (options) {
+    constructor(options) {
         super();
 
         options = options || {};
@@ -14,28 +14,32 @@ nmm.components.Button = class Button extends PIXI.Sprite {
         this.anchor.set(options.anchor.x || 0, options.anchor.y || 0);
         this.key = options.key || 0;
         this.autoHide = options.autoHide || false;
-        this.callback = options.callback || function () {};
+        this.callback = options.callback || function () {
+            };
         this.enableOnStart = options.enableOnStart || false;
         this.trackOverOut = options.trackOverOut || false;
         this.trackDown = options.trackDown || false;
+
+        // Pass a keycode if button is activated on key press.
+        this.keyCode = options.keyCode;
 
         this.isEnabled = false;
 
         this._init();
     }
 
-    hide () {
+    hide() {
         this.visible = false;
         this.disable();
     }
 
-    show () {
+    show() {
         this.visible = true;
         this.enable();
     }
 
-    disable (alpha) {
-        if(this.isEnabled) {
+    disable(alpha) {
+        if (this.isEnabled) {
             this.isEnabled = false;
             alpha = alpha || 1;
 
@@ -49,10 +53,14 @@ nmm.components.Button = class Button extends PIXI.Sprite {
             this.off('pointerupoutside', this._upOutsideHandler);
             this.off('pointerover', this._overHandler);
             this.off('pointerout', this._outHandler);
+
+            if (this.keyCode) {
+                window.removeEventListener("keyup", this._keyHandlerBound);
+            }
         }
     }
 
-    enable () {
+    enable() {
         if (!this.isEnabled) {
             this.isEnabled = true;
             this.interactive = true;
@@ -63,47 +71,65 @@ nmm.components.Button = class Button extends PIXI.Sprite {
             if (this.trackOverOut) {
                 this.on('pointerover', this._overHandler);
             }
+
+            if (this.keyCode) {
+                window.addEventListener("keyup", this._keyHandlerBound);
+            }
         }
     }
 
-    _outHandler (event) {
+    _outHandler(event) {
         this.off('pointerout', this._outHandler);
 
         this.callback('OUT', this.key, this, event);
     }
 
-    _overHandler (event) {
+    _overHandler(event) {
         this.on('pointerout', this._outHandler);
 
         this.callback('OVER', this.key, this, event);
     }
 
-    _upOutsideHandler (event) {
+    _upOutsideHandler(event) {
         this.off('pointerup', this._upHandler);
         this.off('pointerupoutside', this._upOutsideHandler);
     }
 
-    _upHandler (event) {
+    _keyHandler(event) {
+        console.log('up');
+        if(event.keyCode === this.keyCode) {
+            this.callback('UP', this.key, this, event);
+
+            if (this.autoHide) {
+                this.hide();
+            }
+        }
+    }
+
+    _upHandler(event) {
         this.off('pointerup', this._upHandler);
         this.off('pointerupoutside', this._upOutsideHandler);
 
         this.callback('UP', this.key, this, event);
 
-        if(this.autoHide) {
+        if (this.autoHide) {
             this.hide();
         }
     }
 
-    _downHandler (event) {
+    _downHandler(event) {
         this.on('pointerup', this._upHandler);
         this.on('pointerupoutside', this._upOutsideHandler);
 
-        if(this.trackDown) {
+        if (this.trackDown) {
             this.callback('DOWN', this.key, this, event);
         }
     }
 
-    _init () {
+    _init() {
+        if(this.keyCode) {
+            this._keyHandlerBound = this._keyHandler.bind(this);
+        }
 
         if (this.enableOnStart) {
             this.enable();
