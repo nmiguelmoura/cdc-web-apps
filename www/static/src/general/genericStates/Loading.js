@@ -28,9 +28,9 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
         }
     };
 
-    animateOut() {
+    animateOut(callback) {
         this._view.endLoading();
-        super.animateOut();
+        super.animateOut(callback);
     }
 
     _secondaryAssetsLoaded() {

@@ -3,7 +3,7 @@
  */
 'use strict';
 nmm.states.specificStates.components.ExpressionComponent = class ExpressionComponent extends PIXI.Container {
-    constructor() {
+    constructor(game) {
         super();
 
         this.MULTIPLY_WIDTH = 83;
@@ -12,6 +12,11 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         this._correctionPos = null;
 
+        // Callback to be used only in game 4
+        this._game = game;
+
+        this.hidden = null;
+
         this._init();
     }
 
@@ -19,6 +24,10 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this._term1.clear();
         this._term2.clear();
         this._result.clear();
+        this.hideInput();
+    }
+
+    hideInput() {
         this.inputField.hide();
     }
 
@@ -31,6 +40,8 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         } else if (term === 'term1') {
             object = this._term1;
         }
+
+        this.hidden = term;
 
         if(value !== undefined && value !== null && value !== "") {
             object.update(term, value);
@@ -58,22 +69,31 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     }
 
     _changeHandler(value) {
+        let scl = this.scale.x;
+        this.scale.set(1);
         let gameData = this.parent._controller.currentGame;
         if(value) {
             value = parseInt(value);
             value = value.toString();
-            if(gameData.game === 'game-1') {
+            if(gameData.hidden === 'result') {
                 value = value.substring(0, 3);
-            } else if (gameData.game === 'game-2') {
+            } else if (gameData.hidden === 'term2') {
                 value = value.substring(0, gameData.term2.toString().length);
+            } else if (gameData.hidden === 'term1') {
+                value = value.substring(0, gameData.term1.toString().length);
             }
-
             this.updateNumber(gameData.hidden, value);
 
         } else {
             this.updateNumber(gameData.hidden, value);
         }
         this.inputField.setValue(value);
+
+        if(this._game === 'game-4') {
+            nmm.observer.publish('game-four-answer', {value: value, key: gameData.key});
+        }
+
+        this.scale.set(scl);
     };
 
     resetInput() {
@@ -82,26 +102,33 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this.inputField.focus();
     }
 
+    showCorrection(correct) {
+        this._correction.show(correct, {x: this._correctionPos, y: 220}, false);
+    }
+
     wrongAnswer() {
-        this._correction.show(0, {x: this._correctionPos, y: 220}, false);
+        this.showCorrection(false);
         this.inputField.hide();
     }
 
     correctAnswer() {
-        this._correction.show(1, {x: this._correctionPos, y: 220}, true);
+        this.showCorrection(true);
         this.inputField.hide();
+    }
+
+    resetValue(hidden) {
+        if (hidden === 'result' || this.hidden === 'result') {
+            this._result.update();
+        } else if (hidden === 'term2' || this.hidden === 'term2') {
+            this._term2.update();
+        } else if(hidden === 'term1' || this.hidden === 'term1') {
+            this._term1.update();
+        }
     }
 
     resetAnswer(hidden) {
         this.resetInput();
-
-        if (hidden === 'result') {
-            this._result.update();
-        } else if (hidden === 'term2') {
-            this._term2.update();
-        } else if(hidden === 'term1') {
-            this._term1.update();
-        }
+        this.resetValue(hidden);
     }
 
     repositionInputField(data) {
@@ -181,7 +208,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             trackChange: true,
             callback: this._changeHandler.bind(this)
         });
-        this.inputField.style.opacity = 0;
+        this.inputField.style.opacity = 0.2;
         this.inputField.enable();
     };
 

@@ -12,8 +12,8 @@ nmm.states.specificStates.TabSelection = class TabSelection extends nmm.states.g
         this._gameToGo = null;
     }
 
-    animateOut () {
-        super.animateOut();
+    animateOut (callback) {
+        super.animateOut(callback);
         this._view.disableBtns();
     }
 

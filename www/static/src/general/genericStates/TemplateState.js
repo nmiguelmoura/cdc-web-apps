@@ -19,10 +19,14 @@ nmm.states.genericStates.TemplateState = class TemplateState extends PIXI.Contai
         }, [], this);
     }
 
-    animateOut () {
+    animateOut (callback) {
+        if(!callback) {
+            console.error("ATTENTION\nCallback not defined in animateOut method from class " + this.name);
+        }
         TweenLite.to(this, this.TWEEN_OUT_TIME, {alpha: 0});
         TweenLite.delayedCall(this.TWEEN_OUT_TIME, function () {
             this._stateOut();
+            callback(this);
         }, [], this);
     }
 

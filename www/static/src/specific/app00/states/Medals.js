@@ -12,8 +12,8 @@ nmm.states.specificStates.Medals = class Medals extends nmm.states.genericStates
         this._view.enableBtns();
     }
 
-    animateOut() {
-        super.animateOut();
+    animateOut(callback) {
+        super.animateOut(callback);
         this._view.disableBtns();
     }
 

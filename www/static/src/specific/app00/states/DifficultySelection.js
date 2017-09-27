@@ -12,8 +12,8 @@ nmm.states.specificStates.DifficultySelection = class DifficultySelection extend
         this._gameToGo = null
     }
 
-    animateOut () {
-        super.animateOut();
+    animateOut (callback) {
+        super.animateOut(callback);
         this._view.disableBtns();
     }
 

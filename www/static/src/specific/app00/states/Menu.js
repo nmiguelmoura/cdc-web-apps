@@ -50,7 +50,7 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
 
             case 'game-4':
                 if(this._checkIfPackageLoaded()) {
-
+                    nmm.runtime.app.fsm.changeState('game-4');
                 } else {
                     nmm.runtime.app.fsm.changeState('loading');
                     nmm.runtime.app.fsm.getStateByName('loading').loadSecondaryAssets(nmm.app.config.gameFourTexturePackage, 'game-4', true);
