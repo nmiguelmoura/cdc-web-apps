@@ -55,7 +55,7 @@ nmm.components.Button = class Button extends PIXI.Sprite {
             this.off('pointerout', this._outHandler);
 
             if (this.keyCode) {
-                window.removeEventListener("keyup", this._keyHandlerBound);
+                window.removeEventListener("keydown", this._keyHandlerBound);
             }
         }
     }
@@ -73,7 +73,7 @@ nmm.components.Button = class Button extends PIXI.Sprite {
             }
 
             if (this.keyCode) {
-                window.addEventListener("keyup", this._keyHandlerBound);
+                window.addEventListener("keydown", this._keyHandlerBound);
             }
         }
     }
