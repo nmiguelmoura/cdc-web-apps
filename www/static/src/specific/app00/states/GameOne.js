@@ -18,6 +18,7 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
     animateIn () {
         super.animateIn();
         this._newExercise();
+        this._view.dummyField.show();
     }
 
     btnClicked (key) {

@@ -13,6 +13,7 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
     clear() {
         this._helperComponent.clear();
         this._expressionComponent.clear();
+        this.dummyField.hide();
     }
 
     get inputValue() {
@@ -54,10 +55,12 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
 
     showWrong() {
         this._expressionComponent.wrongAnswer();
+        this.dummyField.focus();
     }
 
     showCorrect() {
         this._expressionComponent.correctAnswer();
+        this.dummyField.focus();
     }
 
     _updateComponents(data) {
@@ -102,6 +105,19 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
     _callback(type, key, btn, event) {
         this._controller.btnClicked(key);
     };
+
+    _addDummyField() {
+        this.dummyField = new nmm.dom.InputField({
+            top: 768,
+            left: 1024,
+            type: 'number',
+            width: 1,
+            height: 1,
+            display: 'block',
+            trackChange: false
+        });
+        this.dummyField.style.opacity = 0;
+    }
 
     _addMedalPopupComponent() {
         this._medalPopup = new nmm.components.MedalPopupComponent([
@@ -155,5 +171,7 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
         this._addHelperComponent();
         this._addExpressionComponent();
         this._addMedalPopupComponent();
+
+        this._addDummyField();
     }
 };

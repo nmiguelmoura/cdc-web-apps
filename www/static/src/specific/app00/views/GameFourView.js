@@ -29,6 +29,7 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
 
         this.resetAnimalTexture();
         this.info.hide();
+        this.dummyField.hide();
     }
 
     resetAnimalTexture() {
@@ -150,6 +151,19 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
         this._controller.btnClicked(key);
     };
 
+    _addDummyField() {
+        this.dummyField = new nmm.dom.InputField({
+            top: 768,
+            left: 1024,
+            type: 'number',
+            width: 1,
+            height: 1,
+            display: 'block',
+            trackChange: false
+        });
+        this.dummyField.style.opacity = 0;
+    }
+
     _addHomeBtn () {
         this._homeBtn = new nmm.components.TexturedButton({
             texture: PIXI.Texture.fromFrame('btn_icon_home'),
@@ -198,5 +212,7 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
         this._addInfo();
 
         this._addHomeBtn();
+
+        this._addDummyField();
     }
 };

@@ -18,6 +18,7 @@ nmm.states.specificStates.GameThree = class GameThree extends nmm.states.generic
         super.animateIn();
         this._newExercise(true);
         nmm.dataModel.breakScoreChain();
+        this._view.dummyField.show();
     }
 
     btnClicked(key) {

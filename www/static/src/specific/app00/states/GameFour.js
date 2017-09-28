@@ -42,6 +42,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
         nmm.observer.subscribe('game-four-selector', this.selectorChange, this);
         nmm.observer.subscribe('game-four-answer', this.answer, this);
         this._model.reset();
+        this._viewGame.dummyField.show();
         this._newLevel();
         super.animateIn();
     }
@@ -70,6 +71,8 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
                 }
 
                 if (this._model.correct === this._model.current.numberOfCards) {
+                    this._viewGame.dummyField.focus();
+
                     // end game
 
                     // Check if medal to store.
@@ -118,8 +121,6 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
             }
 
             nmm.runtime.app.fsm.changeState('menu');
-        } else {
-            //
         }
     }
 
@@ -138,6 +139,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
     }
 
     _newLevel() {
+        this._viewGame.dummyField.focus();
         this._timerTween = {};
         this._model.selected = 0;
         this._model.correct = 0;
