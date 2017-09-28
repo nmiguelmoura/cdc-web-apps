@@ -112,29 +112,16 @@ nmm.engine.FSM = class {
         // Logo.
         this.registerState(new nmm.states.genericStates.Logo());
 
-        // Menu.
-        this.registerState(new nmm.states.specificStates.Menu());
+        // Check for app specific states.
+        let key,
+            appStates = nmm.states.specificStates;
 
-        // Medals.
-        this.registerState(new nmm.states.specificStates.Medals());
-
-        // Tab selection.
-        this.registerState(new nmm.states.specificStates.TabSelection());
-
-        // Difficulty selection.
-        this.registerState(new nmm.states.specificStates.DifficultySelection());
-
-        // Game one and two.
-        this.registerState(new nmm.states.specificStates.GameOne());
-
-        // Game three.
-        this.registerState(new nmm.states.specificStates.GameThree());
-
-        // Game four.
-        this.registerState(new nmm.states.specificStates.GameFour());
-
-        // End game.
-        this.registerState(new nmm.states.specificStates.GameOver());
+        for(key in appStates) {
+            if(appStates.hasOwnProperty(key) && typeof appStates[key] === 'function') {
+                // Register all states.
+                this.registerState(new appStates[key]());
+            }
+        }
     }
 
     init() {
