@@ -28,6 +28,7 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
         }
 
         this.resetAnimalTexture();
+        this.info.hide();
     }
 
     resetAnimalTexture() {
@@ -160,6 +161,11 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
         this.addChild(this._homeBtn);
     }
 
+    _addInfo() {
+        this.info = new nmm.states.specificStates.components.InfoComponent(this._controller);
+        this.addChild(this.info);
+    }
+
     _addLivesCounter() {
         this._lives = new nmm.components.LiveCounter(3, 0);
         this._lives.position.set(995, 25);
@@ -188,6 +194,8 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
         this._addAnimalPicture();
         this._addCards();
         this._addLivesCounter();
+
+        this._addInfo();
 
         this._addHomeBtn();
     }

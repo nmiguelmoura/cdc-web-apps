@@ -13,7 +13,7 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
 
         this.CONTAINER_CENTER = {
             x: 446,
-            y: 255
+            y: 260
         };
 
         this.NUMBER_SCALE = 0.4;
@@ -51,6 +51,37 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
         this._container[term].update(term, value, this.NUMBER_SCALE);
     }
 
+    _boundsUpdate() {
+        let globalScale = nmm.runtime.app.scale;
+        let foodDim = this._container.food.getBounds(),
+            term1Dim = this._container.term1.getBounds(),
+            term2Dim = this._container.term2.getBounds();
+
+        foodDim.width = foodDim.width / globalScale;
+        foodDim.height = foodDim.height / globalScale;
+        term1Dim.width = term1Dim.width / globalScale;
+        term1Dim.height = term1Dim.height / globalScale;
+        term2Dim.width = term2Dim.width / globalScale;
+        term2Dim.height = term2Dim.height / globalScale;
+
+        this._container.term1.position.x = -term1Dim.width;
+        this._container.term1.position.y = foodDim.height / 2 + this.FOOD_POSITION.y - term1Dim.height / 2;
+
+        this._container.term2.position.x = foodDim.width / 2 + this.FOOD_POSITION.x - term2Dim.width / 2;
+
+        this._container.lines.clear()
+            .lineStyle(2, 0xFFFFFF, 1)
+            .moveTo(this.FOOD_POSITION.x, 20)
+            .lineTo(this.FOOD_POSITION.x + foodDim.width, 20)
+            .moveTo(20, this.FOOD_POSITION.y)
+            .lineTo(20, this.FOOD_POSITION.y + foodDim.height);
+
+        let containerDim = this._container.getBounds();
+        containerDim.width = containerDim.width / globalScale;
+        containerDim.height = containerDim.height / globalScale;
+        this._container.position.set(this.CONTAINER_CENTER.x - containerDim.width / 2, this.CONTAINER_CENTER.y - containerDim.height / 2);
+    }
+
     update(data) {
         this._textures.animals[data.term1] = this._textures.animals[data.term1] || PIXI.Texture.fromFrame('animal_' + data.term1);
         this._animal.texture = this._textures.animals[data.term1];
@@ -67,24 +98,12 @@ nmm.states.specificStates.components.HelperComponent = class HelperComponent ext
 
         this._container.food.scale.set(Math.min(this.MAX_SCALING[data.term1], (1.06 - 0.07 * data.term2)));
 
-        let foodDim = this._container.food.getBounds(),
-            term1Dim = this._container.term1.getBounds(),
-            term2Dim = this._container.term2.getBounds();
 
-        this._container.term1.position.x = -term1Dim.width;
-        this._container.term1.position.y = foodDim.height / 2 + this.FOOD_POSITION.y - term1Dim.height / 2;
 
-        this._container.term2.position.x = foodDim.width / 2 + this.FOOD_POSITION.x - term2Dim.width / 2;
-
-        this._container.lines.clear()
-            .lineStyle(2, 0xFFFFFF, 1)
-            .moveTo(this.FOOD_POSITION.x, 20)
-            .lineTo(this.FOOD_POSITION.x + foodDim.width, 20)
-            .moveTo(20, this.FOOD_POSITION.y)
-            .lineTo(20, this.FOOD_POSITION.y + foodDim.height);
-
-        let containerDim = this._container.getBounds();
-        this._container.position.set(this.CONTAINER_CENTER.x - containerDim.width / 2, this.CONTAINER_CENTER.y - containerDim.height / 2);
+        TweenLite.delayedCall(0.001, function () {
+            // Has to be a delay here, to let pass a frame and calc accordingly when global scale is not 1.
+            this._boundsUpdate();
+        }, [], this);
     }
 
     _addCentralContainer() {

@@ -10,8 +10,6 @@ nmm.states.specificStates.GameOver = class GameOver extends nmm.states.genericSt
 
     _stateIn() {
         TweenLite.delayedCall(3, function () {
-            console.log(this._stateToGoAfter);
-            console.log(this._stateToGoAfter);
             nmm.runtime.app.fsm.changeState(this._stateToGoAfter, {
                 game: this._game
             });

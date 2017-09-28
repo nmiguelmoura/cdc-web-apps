@@ -61,10 +61,13 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
     }
 
     _updateComponents (data) {
+        let globalScale = nmm.runtime.app.scale;
         this._helperComponent.update(data);
         this._expressionComponent.update(data);
-        this._expressionComponent.position.x = 512 - this._expressionComponent.getBounds().width / 2;
-        this._expressionComponent.repositionInputField(data);
+        TweenLite.delayedCall(0.002, function () {
+            this._expressionComponent.position.x = 512 - this._expressionComponent.getBounds().width / (2 * globalScale);
+            this._expressionComponent.repositionInputField(data);
+        }, [], this);
     }
 
     update(data) {

@@ -41,8 +41,11 @@ nmm.states.specificStates.components.CardComponent = class CardComponent extends
     }
 
     _positionExpression(data) {
+        let globalScale = nmm.runtime.app.scale;
         let height = data.numberOfCards === 12 ? 128 : 256;
         let bounds = this._expression.getBounds();
+        bounds.width = bounds.width / globalScale;
+        bounds.height = bounds.height / globalScale;
         this._expression.position.x = 256 - bounds.width / 2;
         this._expression.position.y = height / 2 - bounds.height / 2 + 10;
 
@@ -53,7 +56,9 @@ nmm.states.specificStates.components.CardComponent = class CardComponent extends
         this._expression.scale.set(1);
         this._expression.update(data.calcs[this.key]);
         this._expression.scale.set(0.5);
-        this._positionExpression(data);
+        TweenLite.delayedCall(0.002, function () {
+            this._positionExpression(data);
+        }, [], this);
     }
 
     update(data, key) {
@@ -73,7 +78,7 @@ nmm.states.specificStates.components.CardComponent = class CardComponent extends
     _addCardSelector() {
         if(!nmm.cardTextures.selector) {
             let graph = new PIXI.Graphics()
-                .beginFill(0xFF0000, 0.2)
+                .beginFill(0xFF0000, 0)
                 .drawRect(0, 0, 10, 10)
                 .endFill();
             nmm.cardTextures.selector = graph.generateTexture();

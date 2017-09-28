@@ -44,8 +44,9 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
         let incremented = 0,
             sp;
 
-        const SPACING = 15;
+        const SPACING = 30 * nmm.runtime.app.devicePixelRatio;
 
+        this.scale.set(1);
         for(i = 0; i < valueLength; i++) {
             v = value[i];
             sp = this._sprites[i];

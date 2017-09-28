@@ -15,14 +15,14 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
 
     _clearAllTimers() {
         var key;
-        for(key in this._timerTween) {
-            if(this._timerTween.hasOwnProperty(key)) {
+        for (key in this._timerTween) {
+            if (this._timerTween.hasOwnProperty(key)) {
                 this._timerTween[key].kill();
             }
         }
     }
 
-    _stateOut() {
+    _stateOut() {
         this._viewGame.clear();
     }
 
@@ -56,39 +56,34 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
     }
 
     answer(data) {
-        if(this._timerTween[data.key]) {
+        if (this._timerTween[data.key]) {
             this._timerTween[data.key].kill();
         }
 
         this._timerTween[data.key] = TweenLite.delayedCall(this.ANSWER_INTERVAL, function () {
             let answer = this._model.validateAnswer(data.value, data.key);
-            if(answer) {
+            if (answer) {
                 this._viewGame.removeCard(data.key);
 
-                if(this._model.selected === data.key) {
+                if (this._model.selected === data.key) {
                     this._model.selected = this._viewGame.manageSelectors();
                 }
 
-                if(this._model.correct === this._model.current.numberOfCards) {
+                if (this._model.correct === this._model.current.numberOfCards) {
                     // end game
+
+                    // Check if medal to store.
                     let medalLevel = this._model.checkIfMedalLevel();
-                    if(medalLevel && nmm.dataModel.storeMedal(4, medalLevel)) {
+                    if (medalLevel && nmm.dataModel.storeMedal(4, medalLevel)) {
                         this._showMedal(medalLevel);
                     }
 
-                    console.log('show animal info');
+                    // Show animal info.
+                    this._viewGame.info.show(this._model.animalData[this._model.level]);
 
-                    /*
-                    if(this._model.level < 10) {
-                        console.log('GO TO NEXT LEVEL');
-                    } else if (this._model.level === 10) {
-                        console.log('WIN');
-                    }
-                    */
-
-                    if(this._model.level === 10 && this._model.lives === 3) {
+                    if (this._model.level === 10 && this._model.lives === 3) {
                         let medalWon = nmm.dataModel.storeMedal(4, 5);
-                        if(medalWon) {
+                        if (medalWon) {
                             this._showMedal(5);
                         }
                     }
@@ -98,12 +93,12 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
 
                 this._model.lives--;
 
-                console.log('LOOSE 1 LIVE');
-                if(this._model.lives === 0) {
+                // Loose 1 live.
+                if (this._model.lives === 0) {
                     this._viewGame.disableCards();
 
 
-                    if(this._model.correct === 0) {
+                    if (this._model.correct === 0) {
                         this._viewGame.resetAnimalTexture();
                     }
 
@@ -115,10 +110,10 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
         }, [], this);
     }
 
-    btnClicked (key) {
-        if(key === 'menu') {
+    btnClicked(key) {
+        if (key === 'menu') {
             this._viewGame.disableBtns();
-            if(this._delayedTween) {
+            if (this._delayedTween) {
                 this._delayedTween.kill();
             }
 
@@ -137,6 +132,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
     _showLevelNumber() {
         TweenLite.to(this._viewGame, 0.5, {alpha: 0});
         TweenLite.delayedCall(2, function () {
+            this._viewGame.resetAnimalTexture();
             this._showGame();
         }, [], this)
     }
@@ -149,6 +145,16 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
 
         this._levelNumberView.update(data.level);
         this._showLevelNumber();
+    }
+
+    endLevel() {
+        if (this._model.level < 10) {
+            // Go to next level.
+            this._newLevel();
+        } else if (this._model.level === 10) {
+            // End game.
+            nmm.runtime.app.fsm.changeState('game-over', {stateToGoAfter: 'menu', success: true});
+        }
     }
 
     _showMedal(level) {
@@ -170,6 +176,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
         this.addChild(this._levelNumberView);
 
         this._viewGame = new nmm.states.specificStates.views.GameFourView(this);
+        this._viewGame.alpha = 0;
         this.addChild(this._viewGame);
 
         this._addMedalPopupComponent();

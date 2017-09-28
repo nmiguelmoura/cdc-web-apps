@@ -9,6 +9,48 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
         this.current = null;
         this.selected = null;
         this.correct = null;
+        this.animalData = {
+            1: {
+                "name": "Coala",
+                "description": "O moala é..."
+            },
+            2: {
+                "name": "Macaco",
+                "description": "O macaco é..."
+            },
+            3: {
+                "name": "Hipopótamo",
+                "description": "O macaco é..."
+            },
+            4: {
+                "name": "Coelho",
+                "description": "O coelho é..."
+            },
+            5: {
+                "name": "Porco",
+                "description": "O porco é..."
+            },
+            6: {
+                "name": "Ouriço-cacheiro",
+                "description": "O ouriço-cacheiro é..."
+            },
+            7: {
+                "name": "Galinha",
+                "description": "A galinha é..."
+            },
+            8: {
+                "name": "Urso",
+                "description": "O urso é..."
+            },
+            9: {
+                "name": "Cão",
+                "description": "O cão é..."
+            },
+            10: {
+                "name": "Pinguim",
+                "description": "O pinguim é..."
+            }
+        };
     }
 
     checkIfMedalLevel() {
@@ -48,18 +90,16 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
     _getPossibleValues(num, limit) {
         /**
          * Builds a list (array) with all possible values for a given term, and shuffles the positions.
-         * @param {Number} num - Number of values needed.
          * @param {Number} limit - The biggest number in the array. Always starts in 1.
          */
 
         let i,
-            list = [];
-        for (i = 1; i <= num; i++) {
+            list = [],
+        length = Math.max(num, limit);
+        for (i = 1; i <= length; i++) {
             if(i <= limit) {
-                // If i less or equal to limit, use i value.
                 list.push(i);
             } else {
-                // If i bigger than limit, generate random value between 1 and limit.
                 list.push(Math.round(1 + Math.random() * (limit - 1)));
             }
         }
@@ -78,7 +118,7 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
         }
     }
 
-    _generateCalcs(num, limit1, limit2) {
+    _generateCalcs(num, limit1, limit2, hidden) {
         /**
          * Generates random calculations with term1, term2 and result.
          * @param {Number} num - Number of different calculations to generate.
@@ -93,7 +133,7 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
             result,
             list = [],
             possibleValuesTerm1 = this._getPossibleValues(num, limit1),
-            possibleValuesTerm2 = this._getPossibleValues(num, limit1);
+            possibleValuesTerm2 = this._getPossibleValues(num, limit2);
 
         for (i = 0; i < num; i++) {
             term1 = possibleValuesTerm1.pop();
@@ -101,7 +141,7 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
             result = Math.round(term1 * term2);
 
             list.push({
-                "hidden": this._randomizeTermToHide(),
+                "hidden": hidden ? hidden : this._randomizeTermToHide(),
                 "term1": term1,
                 "term2": term2,
                 "result": result,
@@ -124,9 +164,10 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
 
             // limit - max value for term. Min is always 1.
             limit1,
-            limit2;
+            limit2,
+            hidden;
 
-        if (this.level <= 2) {
+        if (this.level === 1) {
             // 6 calcs
             // term1 - 1 to 5
             // term2 - 1 to 5
@@ -134,7 +175,25 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
             num = 6;
             limit1 = 5;
             limit2 = 5;
-        } else if (this.level > 2 && this.level <= 4) {
+            hidden = "result";
+        } else if (this.level === 2) {
+            // 6 calcs
+            // term1 - 1 to 5
+            // term2 - 1 to 10
+
+            num = 6;
+            limit1 = 5;
+            limit2 = 10;
+            hidden = "result";
+        } else if(this.level === 3) {
+            // 6 calcs
+            // term1 - 1 to 5
+            // term2 - 1 to 5
+
+            num = 6;
+            limit1 = 5;
+            limit2 = 5;
+        } else if (this.level === 4) {
             // 6 calcs
             // term1 - 1 to 5
             // term2 - 1 to 10
@@ -164,7 +223,7 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
             "game": "game-4",
             "level": this.level,
             "numberOfCards": num,
-            "calcs": this._generateCalcs(num, limit1, limit2)
+            "calcs": this._generateCalcs(num, limit1, limit2, hidden)
         };
 
         return this.current;
