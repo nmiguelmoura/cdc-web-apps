@@ -8,7 +8,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         this.MULTIPLY_WIDTH = 83;
         this.EQUAL_WIDTH = 78;
-        this.SPACING = 50 * nmm.runtime.app.devicePixelRatio;
+        this.SPACING = 50;
 
         this._correctionPos = null;
 
@@ -16,6 +16,11 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this._game = game;
 
         this.hidden = null;
+
+        this.dim = {
+            width: 0,
+            height: 136
+        };
 
         this._init();
     }
@@ -57,17 +62,15 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this._term2.update('term2', data.term2, 1);
         this._result.update('result', data.result, 1);
 
-        TweenLite.delayedCall(0.001, function () {
-            this._repositionElements(data);
+        this._repositionElements(data);
 
-            if (data.hidden === 'result') {
-                this._result.update();
-            } else if (data.hidden === 'term2') {
-                this._term2.update();
-            } else if(data.hidden === 'term1') {
-                this._term1.update();
-            }
-        }, [], this);
+        if (data.hidden === 'result') {
+            this._result.update();
+        } else if (data.hidden === 'term2') {
+            this._term2.update();
+        } else if(data.hidden === 'term1') {
+            this._term1.update();
+        }
     }
 
     _changeHandler(value) {
@@ -136,6 +139,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     repositionInputField(data) {
         let pos,
             globalScale = nmm.runtime.app.scale;
+
         if(data.hidden === 'result') {
             pos = this.toGlobal(this._result.position);
         } else if (data.hidden === 'term2') {
@@ -144,7 +148,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             pos = this.toGlobal(this._term1.position);
         }
         this.inputField.setPosition({
-            left: pos.x / globalScale,
+            left: (pos.x - 20) / globalScale,
             top: pos.y / globalScale
         })
     }
@@ -155,19 +159,12 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     }
 
     _repositionElements(data) {
-        let globalScale = nmm.runtime.app.scale;
         // Update term1 dimensions.
-        let term1Dim = this._term1.getBounds(),
-            term2Dim = this._term2.getBounds(),
-            resultDim = this._result.getBounds(),
+        let term1Dim = this._term1.dim,
+            term2Dim = this._term2.dim,
+            resultDim = this._result.dim,
             increment = null;
 
-        term1Dim.width = term1Dim.width / globalScale;
-        term1Dim.height = term1Dim.height / globalScale;
-        term2Dim.width = term2Dim.width / globalScale;
-        term2Dim.height = term2Dim.height / globalScale;
-        resultDim.width = resultDim.width / globalScale;
-        resultDim.height = resultDim.height / globalScale;
         increment = term1Dim.width + this.SPACING;
 
         if(data.hidden === 'term1') {
@@ -179,14 +176,14 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         // Position multiply.
         this._multiply.position.x = increment;
-        increment += this.MULTIPLY_WIDTH * globalScale + this.SPACING;
+        increment += this.MULTIPLY_WIDTH + this.SPACING;
 
         // Position term2.
         this._term2.position.x = increment;
         if (data.hidden === 'term2') {
             this._repositionLine(increment, term2Dim.width);
             this.inputField.setDimensions({
-                width: term2Dim.width + 40
+                width: term2Dim.width + 20
             });
             this._correctionPos = this._term2.position.x + term2Dim.width / 2;
         }
@@ -194,7 +191,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
 
         // Position equal sign.
         this._equal.position.x = increment;
-        increment += this.EQUAL_WIDTH * globalScale + this.SPACING;
+        increment += this.EQUAL_WIDTH + this.SPACING;
 
         // Position result.
         this._result.position.x = increment;
@@ -205,6 +202,9 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             });
             this._correctionPos = this._result.position.x + resultDim.width / 2;
         }
+
+        increment += resultDim.width;
+        this.dim.width = increment;
     }
 
     _addCorrectionMC() {
@@ -220,7 +220,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             trackChange: true,
             callback: this._changeHandler.bind(this)
         });
-        this.inputField.style.opacity = 0.2;
+        this.inputField.style.opacity = 0;
         this.inputField.enable();
     };
 

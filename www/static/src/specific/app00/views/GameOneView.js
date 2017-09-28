@@ -6,7 +6,7 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
     constructor(controller) {
         super();
         this._controller = controller;
-
+        this.EXPRESSION_SCALE = 0.8;
         this._init();
     }
 
@@ -61,13 +61,11 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
     }
 
     _updateComponents (data) {
-        let globalScale = nmm.runtime.app.scale;
         this._helperComponent.update(data);
         this._expressionComponent.update(data);
-        TweenLite.delayedCall(0.002, function () {
-            this._expressionComponent.position.x = 512 - this._expressionComponent.getBounds().width / (2 * globalScale);
-            this._expressionComponent.repositionInputField(data);
-        }, [], this);
+
+        this._expressionComponent.position.x = 512 - (this._expressionComponent.dim.width / 2) * this.EXPRESSION_SCALE;
+        this._expressionComponent.repositionInputField(data);
     }
 
     update(data) {
@@ -110,8 +108,8 @@ nmm.states.specificStates.views.GameOneView = class GameOneView extends PIXI.Con
 
     _addExpressionComponent () {
         this._expressionComponent = new nmm.states.specificStates.components.ExpressionComponent();
-        this._expressionComponent.y = 462;
-        this._expressionComponent.scale.set(0.8);
+        this._expressionComponent.y = 467;
+        this._expressionComponent.scale.set(this.EXPRESSION_SCALE);
         this.addChild(this._expressionComponent);
     }
 

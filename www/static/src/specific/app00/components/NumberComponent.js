@@ -10,7 +10,12 @@ nmm.numberComponentTextures = {
 nmm.states.specificStates.components.NumberComponent = class NumberComponent extends PIXI.Container {
     constructor () {
         super();
+        this.CHAR_WIDTH = 94;
         this._sprites = [];
+        this.dim = {
+            width: 0,
+            height: 136
+        };
     }
 
     clear() {
@@ -44,7 +49,7 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
         let incremented = 0,
             sp;
 
-        const SPACING = 30 * nmm.runtime.app.devicePixelRatio;
+        const SPACING = 15;
 
         this.scale.set(1);
         for(i = 0; i < valueLength; i++) {
@@ -53,8 +58,10 @@ nmm.states.specificStates.components.NumberComponent = class NumberComponent ext
             nmm.numberComponentTextures[color][v] = nmm.numberComponentTextures[color][v] || PIXI.Texture.fromFrame('font-' + v + '-' + color);
             sp.texture = nmm.numberComponentTextures[color][v];
             sp.position.x = incremented;
-            incremented += (sp.getBounds().width + SPACING);
+            incremented += this.CHAR_WIDTH + SPACING;
         }
+
+        this.dim.width = incremented - SPACING;
     }
 
     _adjustNumberOfSprites(value) {

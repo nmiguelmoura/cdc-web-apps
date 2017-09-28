@@ -6,6 +6,7 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
     constructor(controller) {
         super();
         this._controller = controller;
+        this.EXPRESSION_SCALE = 0.8;
         this._init();
     }
 
@@ -60,13 +61,12 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
     }
 
     _updateComponents(data) {
-        let globalScale = nmm.runtime.app.scale;
         if (data.difficulty === 1) {
             this._helperComponent.update(data);
         }
         this._expressionComponent.update(data);
-        TweenLite.delayedCall(0.002, function () {
-            this._expressionComponent.position.x = 512 - this._expressionComponent.getBounds().width / (2 * globalScale);
+        this._expressionComponent.position.x = 512 - (this._expressionComponent.dim.width / 2) * this.EXPRESSION_SCALE;
+        TweenLite.delayedCall(0.001, function () {
             this._expressionComponent.repositionInputField(data);
         }, [], this);
     }
@@ -80,7 +80,7 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
 
             if (data.difficulty === 1) {
                 this._helperComponent.visible = true;
-                this._expressionComponent.y = 462;
+                this._expressionComponent.y = 467;
             } else {
                 this._helperComponent.visible = false;
                 this._expressionComponent.y = 250;
@@ -115,7 +115,7 @@ nmm.states.specificStates.views.GameThreeView = class GameThreeView extends PIXI
 
     _addExpressionComponent() {
         this._expressionComponent = new nmm.states.specificStates.components.ExpressionComponent();
-        this._expressionComponent.scale.set(0.8);
+        this._expressionComponent.scale.set(this.EXPRESSION_SCALE);
         this.addChild(this._expressionComponent);
     }
 
