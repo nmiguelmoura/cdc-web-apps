@@ -1,6 +1,6 @@
 # Educational apps
 
-This repository holds the code used to build free educational apps for small children. The apps are published in [Casa das Ciências](htps://casadasciencias.org) and freely available to anyone interested.
+This repository holds the code used to build free educational apps for small children. The apps are published in [Casa das Ciências](https://casadasciencias.org) and freely available to anyone interested.
 
 ## Libraries
 These apps are built using three main libraries:
@@ -13,4 +13,4 @@ The repository has the following apps:
 - Brincar à tabuada (Play with multiplications) - app00.html.
 
 ## How to play?
-Download the repository and run the html files in a web server or visit [Casa das Ciências](htps://casadasciencias.org)
+Download the repository and run the html files in a web server or visit [Casa das Ciências](https://casadasciencias.org)
