@@ -42,11 +42,7 @@ nmm.states.genericStates.Loading = class Loading extends nmm.states.genericState
     _primaryAssetsLoaded() {
         console.log('... Loading primary assets successful');
 
-        // TODO remove comment signs.
-        //nmm.runtime.app.fsm.changeState('logo');
-
-        // TODO remove this line.
-        nmm.runtime.app.fsm.changeState('menu');
+        nmm.runtime.app.fsm.changeState('logo');
     }
 
     loadSecondaryAssets(assets, stateToGo, destroyLoading) {

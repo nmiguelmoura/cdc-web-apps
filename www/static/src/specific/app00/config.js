@@ -136,12 +136,12 @@ nmm.app.config = {
                         {
                             "id": "music",
                             "startTime": 5000,
-                            "duration": 162063.67346938775
+                            "duration": 24058.775510204083
                         },
                         {
                             "id": "wrong",
-                            "startTime": 169000,
-                            "duration": 2433.1746031745924
+                            "startTime": 31000,
+                            "duration": 2433.1746031746065
                         }
                     ]
                 }

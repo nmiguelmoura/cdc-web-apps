@@ -12,43 +12,43 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
         this.animalData = {
             1: {
                 "name": "Coala",
-                "description": "O moala é..."
+                "description": "O coala é um mamífero marsupial que habita na Austrália. O coala alimenta-se exclusivamente de folhas de eucalipto e retira destas não só o alimento, mas também a água de que precisa."
             },
             2: {
                 "name": "Macaco",
-                "description": "O macaco é..."
+                "description": "Os macacos são mamíferos que, tal como nós, pertencem à ordem dos primatas. Existem dezenas de espécies de macacos, e grande parte delas habitam em florestas tropicais da América, África e Ásia."
             },
             3: {
                 "name": "Hipopótamo",
-                "description": "O macaco é..."
+                "description": "Os hipopótamos são mamíferos herbívoros. O hipopótamo-comum é um animal de grande porte que vive em grupo, em rios da África subsariana."
             },
             4: {
                 "name": "Coelho",
-                "description": "O coelho é..."
+                "description": "Os coelhos são mamíferos herbívoros. Estes animais apresentam umas grandes orelhas, uma cauda curta, e correm muito depressa."
             },
             5: {
                 "name": "Porco",
-                "description": "O porco é..."
+                "description": "Os porcos são mamíferos. Estes animais são, tal como nós, omnívoros, o que significa que se alimentam de frutas e vegetais, mas também de carne."
             },
             6: {
                 "name": "Ouriço-cacheiro",
-                "description": "O ouriço-cacheiro é..."
+                "description": "Os ouriço-cacheiros são animais mamíferos. Estes animais apresentam o corpo coberto de espinhos para se protegerem dos ataques de predadores, e alimentam-se de pequenos insetos."
             },
             7: {
-                "name": "Galinha",
-                "description": "A galinha é..."
+                "name": "Galo e galinha",
+                "description": "Galos e galinhas são aves que se alimentam essencialmente de grãos de milho. As galinhas põe ovos, que depois de chocados dão origem aos pintainhos."
             },
             8: {
                 "name": "Urso",
-                "description": "O urso é..."
+                "description": "Os ursos são animais mamíferos. O urso panda-gigante apresenta uma pelagem preta e branca e é um animal omnívoro, embora se alimente quase exclusivamente de folhas de bambu."
             },
             9: {
                 "name": "Cão",
-                "description": "O cão é..."
+                "description": "Os cães são animais mamíferos e foram, provavelmente, o primeiro animal a ser domesticado pelos humanos. Os cães são carnívoros e têm um olfato muito apurado."
             },
             10: {
                 "name": "Pinguim",
-                "description": "O pinguim é..."
+                "description": "Os pinguins são aves e, consoante a espécie, podem alimentar-se de peixe ou de plâncton. Estes animais são característicos do Hemisfério Sul."
             }
         };
     }
@@ -204,19 +204,21 @@ nmm.states.specificStates.models.GameFourModel = class GameFourModel {
         } else if (this.level > 4 && this.level <= 7) {
             // 6 calcs
             // term1 - 1 to 10
-            // term2 - 1 to 10
+            // term2 - 1 to 9
+            // avoid 10 x 10 = 100 because of space available
 
             num = 6;
             limit1 = 10;
-            limit2 = 10;
+            limit2 = 9;
         } else if (this.level > 7) {
             // 12 calcs
             // term1 - 1 to 10
-            // term2 - 1 to 10
+            // term2 - 1 to 9
+            // avoid 10 x 10 = 100 because of space available
 
             num = 12;
             limit1 = 10;
-            limit2 = 10;
+            limit2 = 9;
         }
 
         this.current = {

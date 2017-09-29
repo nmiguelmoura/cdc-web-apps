@@ -13,8 +13,6 @@ nmm.states.specificStates.views.GameFourView = class GameFourView extends PIXI.C
     }
 
     clear() {
-        // TODO: clear all expressions
-        // this._expressionComponent.clear();
         this._cardsOnStage.forEach(function (card) {
             this.removeChild(card);
             card.clear();

@@ -98,7 +98,7 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
 
         // Initialize music.
         let music = createjs.Sound.play("music");
-        music.volume = 0.3;
+        music.volume = 0.5;
         music.loop = Number.MAX_SAFE_INTEGER;
     }
 };

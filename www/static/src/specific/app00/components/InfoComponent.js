@@ -49,7 +49,7 @@ nmm.states.specificStates.components.InfoComponent = class InfoComponent extends
             fontWeight: 'bold',
             wordWrap: true,
             wordWrapWidth: 946,
-            lineHeight: 24
+            lineHeight: 28
         };
 
         this._nameField = new PIXI.Text('', style);
@@ -58,7 +58,7 @@ nmm.states.specificStates.components.InfoComponent = class InfoComponent extends
 
         style.fontWeight = 'normal';
         this._descriptionField = new PIXI.Text('', style);
-        this._descriptionField.position.set(20, 50);
+        this._descriptionField.position.set(20, 52);
         this.addChild(this._descriptionField);
 
     }

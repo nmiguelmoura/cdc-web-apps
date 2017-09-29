@@ -13,6 +13,7 @@ nmm.components.CorrectionMC = class CorrectionMC extends PIXI.extras.AnimatedSpr
     }
 
     hide() {
+        TweenLite.killTweensOf(this);
         this.alpha = 0;
     }
 

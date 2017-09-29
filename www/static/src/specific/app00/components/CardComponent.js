@@ -39,7 +39,7 @@ nmm.states.specificStates.components.CardComponent = class CardComponent extends
     }
 
     wrongAnswer(data) {
-        this._expression.showCorrection(false);
+        this._expression.showCorrection(false, 80);
         this._expression.resetValue();
         this._expression.inputField.setValue("");
     }

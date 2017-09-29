@@ -98,6 +98,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             nmm.observer.publish('game-four-answer', {value: value, key: gameData.key});
         }
 
+        this.hideCorrection();
         this.scale.set(scl);
     };
 
@@ -107,8 +108,13 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         this.inputField.focus();
     }
 
-    showCorrection(correct) {
-        this._correction.show(correct, {x: this._correctionPos, y: 220}, false);
+    hideCorrection() {
+        this._correction.hide();
+    }
+
+    showCorrection(correct, y) {
+        y = y || 220;
+        this._correction.show(correct, {x: this._correctionPos, y: y}, false);
     }
 
     wrongAnswer() {
@@ -140,17 +146,19 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         let pos,
             globalScale = nmm.runtime.app.scale;
 
-        if(data.hidden === 'result') {
-            pos = this.toGlobal(this._result.position);
-        } else if (data.hidden === 'term2') {
-            pos = this.toGlobal(this._term2.position);
-        } else if (data.hidden === 'term1') {
-            pos = this.toGlobal(this._term1.position);
-        }
-        this.inputField.setPosition({
-            left: (pos.x - 20) / globalScale,
-            top: pos.y / globalScale
-        })
+        TweenLite.delayedCall(0.001, function () {
+            if(data.hidden === 'result') {
+                pos = this.toGlobal(this._result.position);
+            } else if (data.hidden === 'term2') {
+                pos = this.toGlobal(this._term2.position);
+            } else if (data.hidden === 'term1') {
+                pos = this.toGlobal(this._term1.position);
+            }
+            this.inputField.setPosition({
+                left: (pos.x - 10) / globalScale,
+                top: pos.y / globalScale
+            });
+        }, [], this);
     }
 
     _repositionLine(x, width) {
@@ -198,7 +206,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
         if (data.hidden === 'result') {
             this._repositionLine(increment, resultDim.width);
             this.inputField.setDimensions({
-                width: resultDim.width + 40
+                width: (resultDim.width + 40) * this.scale.x
             });
             this._correctionPos = this._result.position.x + resultDim.width / 2;
         }
@@ -215,7 +223,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
     _addInputField() {
         this.inputField = new nmm.dom.InputField({
             type: 'number',
-            height: 150,
+            height: 94,
             display: 'none',
             trackChange: true,
             callback: this._changeHandler.bind(this)

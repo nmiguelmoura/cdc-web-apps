@@ -64,7 +64,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
         this._timerTween[data.key] = TweenLite.delayedCall(this.ANSWER_INTERVAL, function () {
             let answer = this._model.validateAnswer(data.value, data.key);
             if (answer) {
-                createjs.Sound.play('correct');
+                //createjs.Sound.play('correct');
                 this._viewGame.removeCard(data.key);
 
                 if (this._model.selected === data.key) {
@@ -72,6 +72,7 @@ nmm.states.specificStates.GameFour = class GameFour extends nmm.states.genericSt
                 }
 
                 if (this._model.correct === this._model.current.numberOfCards) {
+                    createjs.Sound.play('correct');
                     this._viewGame.dummyField.focus();
 
                     // end game
