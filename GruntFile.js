@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                     'www/static/dist/libs.js': [
                         'node_modules/createjs-soundjs/lib/soundjs-0.6.2.min.js',
                         'node_modules/gsap/src/minified/easing/EasePack.min.js',
-                        'node_modules/gsap/src/minified/TweenMax.min.js',
+                        'node_modules/gsap/src/minified/TweenLite.min.js',
                         'node_modules/pixi.js/dist/pixi.min.js'
                     ]
                 }
