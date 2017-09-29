@@ -1,0 +1,27 @@
+{
+  "src": "www/static/assets/specific/app00/sound/audiosprite.mp3",
+  "data": {
+    "audioSprite": [
+      {
+        "id": "silence",
+        "startTime": 0,
+        "duration": 1000
+      },
+      {
+        "id": "correct",
+        "startTime": 2000,
+        "duration": 1817.6643990929708
+      },
+      {
+        "id": "music",
+        "startTime": 5000,
+        "duration": 162063.67346938775
+      },
+      {
+        "id": "wrong",
+        "startTime": 169000,
+        "duration": 2433.1746031745924
+      }
+    ]
+  }
+}

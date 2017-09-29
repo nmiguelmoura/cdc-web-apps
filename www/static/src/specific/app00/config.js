@@ -119,8 +119,8 @@ nmm.app.config = {
 
         // Import data for audio sprites.
         spriteSheets: [
-            /*{
-                "src": "static/assets/specific/app00/audioSprite_.mp3",
+            {
+                "src": "static/assets/specific/app00/sound/audiosprite.mp3",
                 "data": {
                     "audioSprite": [
                         {
@@ -136,16 +136,16 @@ nmm.app.config = {
                         {
                             "id": "music",
                             "startTime": 5000,
-                            "duration": 24058.775510204083
+                            "duration": 162063.67346938775
                         },
                         {
                             "id": "wrong",
-                            "startTime": 31000,
-                            "duration": 2433.1746031746065
+                            "startTime": 169000,
+                            "duration": 2433.1746031745924
                         }
                     ]
                 }
-            }*/
+            }
         ]
     },
     medals: {

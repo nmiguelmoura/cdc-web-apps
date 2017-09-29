@@ -35,6 +35,7 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
             let result = this._model.validateAnswer(parseInt(answer));
 
             if (result) {
+                createjs.Sound.play('correct');
                 this._view.showCorrect();
                 if(this._model.current.hidden === 'term2') {
                     this._view.updateFinalValue('term2', answer);
@@ -43,6 +44,7 @@ nmm.states.specificStates.GameOne = class GameOne extends nmm.states.genericStat
                     this._newExercise();
                 }, [], this);
             } else {
+                createjs.Sound.play('wrong');
                 this._view.showWrong();
                 this._delayedTween = TweenLite.delayedCall(2, function () {
                     this._view.allowNewAnswer();

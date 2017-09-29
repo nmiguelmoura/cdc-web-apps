@@ -21,6 +21,10 @@ nmm.engine.Application = class {
         return nmm.runtime.singletons.application;
     }
 
+    get touchSupport() {
+        return "ontouchstart" in document.documentElement;
+    }
+
     get rendererType() {
         if (nmm.renderer instanceof PIXI.CanvasRenderer) {
             return 'canvas';

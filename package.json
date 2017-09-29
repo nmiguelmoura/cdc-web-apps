@@ -4,6 +4,7 @@
   "description": "\"Apps for Casa das Ciencias.\"",
   "main": "index.js",
   "dependencies": {
+    "audiosprite": "^0.7.0",
     "grunt": "^1.0.1"
   },
   "devDependencies": {

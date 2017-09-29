@@ -35,6 +35,7 @@ nmm.states.specificStates.GameThree = class GameThree extends nmm.states.generic
             let result = this._model.validateAnswer(parseInt(answer));
 
             if (result) {
+                createjs.Sound.play('correct');
                 this._view.showCorrect();
                 let scoreStored = nmm.dataModel.storeCorrect();
 
@@ -57,6 +58,7 @@ nmm.states.specificStates.GameThree = class GameThree extends nmm.states.generic
                     this._newExercise();
                 }, [], this);
             } else {
+                createjs.Sound.play('wrong');
                 this._view.showWrong();
                 nmm.dataModel.breakScoreChain();
                 this._delayedTween = TweenLite.delayedCall(2, function () {

@@ -39,6 +39,11 @@ nmm.states.specificStates.views.MenuView = class MenuView extends PIXI.Container
         this._init();
     }
 
+    clear() {
+        this._clearTween();
+        this._rotatePhone.alpha = 0;
+    }
+
     disableBtns() {
         this._btns.forEach(function (btn) {
             btn.disable();
@@ -51,8 +56,43 @@ nmm.states.specificStates.views.MenuView = class MenuView extends PIXI.Container
         });
     };
 
+    _clearTween() {
+        if(this._delayedTween) {
+            this._delayedTween.kill();
+            this._tween.kill();
+        }
+    }
+
+    hideRotatePhone() {
+        console.log('hide');
+        this._clearTween();
+        this._rotatePhone.alpha = 0;
+    };
+
+    _tweenPhone() {
+        this._clearTween();
+        this._rotatePhone.alpha = 0;
+        this._tween = TweenLite.to(this._rotatePhone, 1, {alpha: 1});
+        this._delayedTween = TweenLite.delayedCall(1, function () {
+            this._tweenPhone();
+        }, [], this);
+    }
+
+    showRotatePhone() {
+        console.log('show');
+        this._rotatePhone.alpha = 1;
+        this._tweenPhone();
+    };
+
     _callback(type, key, btn, event) {
         this._controller.changeState(key);
+    }
+
+    _addRotatePhone() {
+        this._rotatePhone = new PIXI.Sprite(PIXI.Texture.fromFrame('rotatePhone'));
+        this._rotatePhone.position.set(915, 15);
+        this._rotatePhone.alpha = 0;
+        this.addChild(this._rotatePhone);
     }
 
     _addBtns() {
@@ -83,5 +123,6 @@ nmm.states.specificStates.views.MenuView = class MenuView extends PIXI.Container
     _init() {
         this._addTitle();
         this._addBtns();
+        this._addRotatePhone();
     }
 };

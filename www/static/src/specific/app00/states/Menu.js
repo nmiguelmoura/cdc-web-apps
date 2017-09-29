@@ -4,21 +4,42 @@
 
 'use strict';
 nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.TemplateState {
-    constructor () {
+    constructor() {
         super();
         this.name = 'menu';
     }
 
-    _stateIn () {
+    _stateOut() {
+        if(nmm.runtime.app.touchSupport) {
+            nmm.observer.unsubscribe('resize', this.windowRotationCheck, this);
+            this.windowRotationCheck();
+        }
+        this._view.clear();
+    }
+
+    _stateIn() {
+        if(nmm.runtime.app.touchSupport) {
+            nmm.observer.subscribe('resize', this.windowRotationCheck, this);
+            this.windowRotationCheck();
+        }
         this._view.enableBtns();
     }
 
-    _checkIfPackageLoaded () {
+    windowRotationCheck() {
+        var res = nmm.runtime.app.windowResolution;
+        if(res.width > res.height) {
+            this._view.showRotatePhone();
+        } else {
+            this._view.hideRotatePhone();
+        }
+    }
+
+    _checkIfPackageLoaded() {
         let key,
             resources = nmm.runtime.app.assetsLoader.loader.resources;
-        for(key in resources) {
-            if(resources.hasOwnProperty(key)) {
-                if(resources[key].name === nmm.app.config.gameFourTexturePackage[0].label) {
+        for (key in resources) {
+            if (resources.hasOwnProperty(key)) {
+                if (resources[key].name === nmm.app.config.gameFourTexturePackage[0].label) {
                     return true;
                 }
             }
@@ -26,7 +47,7 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
         return false;
     }
 
-    changeState (stateName) {
+    changeState(stateName) {
         this._view.disableBtns();
 
         switch (stateName) {
@@ -49,7 +70,7 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
                 break;
 
             case 'game-4':
-                if(this._checkIfPackageLoaded()) {
+                if (this._checkIfPackageLoaded()) {
                     nmm.runtime.app.fsm.changeState('game-4');
                 } else {
                     nmm.runtime.app.fsm.changeState('loading');
@@ -64,15 +85,20 @@ nmm.states.specificStates.Menu = class Menu extends nmm.states.genericStates.Tem
         }
     }
 
-    _addView () {
+    _addView() {
         this._view = new nmm.states.specificStates.views.MenuView(this);
         this.addChild(this._view);
     }
 
-    _init () {
+    _init() {
         this._addView();
 
         // Initialize pool.
         nmm.pool = new nmm.tools.Pool(130);
+
+        // Initialize music.
+        let music = createjs.Sound.play("music");
+        music.volume = 0.3;
+        music.loop = Number.MAX_SAFE_INTEGER;
     }
 };
