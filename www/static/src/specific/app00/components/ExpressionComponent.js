@@ -180,6 +180,7 @@ nmm.states.specificStates.components.ExpressionComponent = class ExpressionCompo
             this.inputField.setDimensions({
                 width: term1Dim.width + 40
             });
+            this._correctionPos = this._term1.position.x + term1Dim.width / 2;
         }
 
         // Position multiply.
