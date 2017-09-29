@@ -13,4 +13,4 @@ The repository has the following apps:
 - Brincar à tabuada (Play with multiplications) - app00.html.
 
 ## How to play?
-Download the repository and run the html files in a web server or visit [Casa das Ciências](https://casadasciencias.org)
+Download the repository and run the html files in a web server or visit [Casa das Ciências](https://casadasciencias.org).
