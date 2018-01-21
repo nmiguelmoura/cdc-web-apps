@@ -10,7 +10,7 @@ These apps are built using three main libraries:
 
 ## Apps
 The repository has the following apps:
-- Brincar à tabuada (Play with multiplications) - app00.html.
+- Brincar à tabuada (Play with multiplications) - app00.html. [Check it here](https://www.casadasciencias.org/cc/redindex.php?idart=303&gid=40808327#)
 
 ## How to play?
 Download the repository and run the html files in a web server or visit [Casa das Ciências](https://casadasciencias.org).
